@@ -1,5 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using RMuseum.Models.Ganjoor;
+using RMuseum.Models.Ganjoor.ViewModels;
 using RMuseum.Models.GanjoorIntegration.ViewModels;
 using System;
 using System.Net;
@@ -40,7 +42,7 @@ namespace BatchGanjoorLinkApprover
             using (HttpClient httpClient = new HttpClient())
             {
                 var stringContent = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json");
-                var loginUrl = "https://ganjgah.ir/api/users/login";
+                var loginUrl = "https://api.ganjoor.net/api/users/login";
                 var response = await httpClient.PostAsync(loginUrl, stringContent);
                 if (response.StatusCode != HttpStatusCode.OK)
                 {
@@ -81,7 +83,7 @@ namespace BatchGanjoorLinkApprover
                     Cursor = Cursors.WaitCursor;
                     Application.DoEvents();
 
-                    HttpResponseMessage response = await httpClient.GetAsync("https://ganjgah.ir/api/artifacts/ganjoor?status=0&notSynced=false");
+                    HttpResponseMessage response = await httpClient.GetAsync("https://api.ganjoor.net/api/artifacts/ganjoor?status=0&notSynced=false");
                     if (response.StatusCode == HttpStatusCode.NoContent)
                     {
                         Cursor = Cursors.Default;
@@ -127,7 +129,7 @@ namespace BatchGanjoorLinkApprover
 
 
 
-                HttpResponseMessage response = await httpClient.GetAsync("https://ganjgah.ir/api/artifacts/ganjoor?status=0&notSynced=true");
+                HttpResponseMessage response = await httpClient.GetAsync("https://api.ganjoor.net/api/artifacts/ganjoor?status=0&notSynced=true");
                 if (response.StatusCode != HttpStatusCode.OK)
                 {
                     Cursor = Cursors.Default;
@@ -154,7 +156,7 @@ namespace BatchGanjoorLinkApprover
                             lblStatus.Text = $"{nRetry} : {link.GanjoorUrl}" ;
                             Application.DoEvents();
 
-                            HttpResponseMessage approveResponse = await httpClient.PutAsync($"https://ganjgah.ir/api/artifacts/ganjoor/review/{link.Id}/1", null);
+                            HttpResponseMessage approveResponse = await httpClient.PutAsync($"https://api.ganjoor.net/api/artifacts/ganjoor/review/{link.Id}/1", null);
                             if(approveResponse.StatusCode == HttpStatusCode.OK)
                             {
                                 approveResponse.EnsureSuccessStatusCode();
@@ -164,6 +166,102 @@ namespace BatchGanjoorLinkApprover
                     }
                 }
 
+                lblStatus.Text = "پایان";
+
+            }
+        }
+
+        private async void btnApproveEdits_Click(object sender, EventArgs e)
+        {
+            if (!await TokenIsValid())
+            {
+                MessageBox.Show("لطفا دوباره وارد شوید.");
+                return;
+            }
+
+            using (HttpClient httpClient = new HttpClient())
+            {
+                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Properties.Settings.Default.MuseumToken);
+
+
+                Cursor = Cursors.WaitCursor;
+                Application.DoEvents();
+
+                int skip = 0;
+                do
+                {
+                    lblStatus.Text = $"بعدی ...";
+                    Application.DoEvents();
+
+                    
+                    HttpResponseMessage response = await httpClient.GetAsync($"https://api.ganjoor.net/api/ganjoor/poem/correction/next?skip={skip}"); 
+                    if(response.StatusCode == HttpStatusCode.NoContent)
+                    {
+                        
+                        break;
+                    }
+                    if (response.StatusCode != HttpStatusCode.OK)
+                    {
+                        Cursor = Cursors.Default;
+                        MessageBox.Show(response.ToString());
+                        return;
+                    }
+
+                    response.EnsureSuccessStatusCode();
+
+                    var correction = JsonConvert.DeserializeObject<GanjoorPoemCorrectionViewModel>(await response.Content.ReadAsStringAsync());
+                    if(correction == null)
+                    {
+                        break;
+                    }
+
+                    
+                    if (correction.UserId != Guid.Parse("5f5fec7e-91db-4155-ea7a-08d95ee3730c"))
+                    {
+                        skip++;
+                        continue;
+                    }
+                    if (correction.Rhythm2 != null)
+                    {
+                        skip++;
+                        continue;
+                    }
+                    
+                    lblStatus.Text = "بررسی ...";
+                    Application.DoEvents();
+
+                    if (correction.Title != null)
+                    {
+                        correction.Result = CorrectionReviewResult.Approved;
+                    }
+                    
+                    if(correction.Rhythm != null)
+                    {
+                        correction.RhythmResult = CorrectionReviewResult.Approved;
+                    }
+
+                    foreach (var v in correction.VerseOrderText)
+                    {
+                        v.Result = CorrectionReviewResult.Approved;
+                    }
+
+                    
+
+                    HttpResponseMessage approveResponse = await httpClient.PostAsync($"https://api.ganjoor.net/api/ganjoor/correction/moderate",
+                        new StringContent(JsonConvert.SerializeObject(correction), Encoding.UTF8, "application/json")
+                        );
+                    if (approveResponse.StatusCode == HttpStatusCode.OK)
+                    {
+                        approveResponse.EnsureSuccessStatusCode();
+                    }
+                    else
+                    {
+                        skip++;
+                    }
+
+                } while (true);
+
+                Cursor = Cursors.Default;
                 lblStatus.Text = "پایان";
 
             }

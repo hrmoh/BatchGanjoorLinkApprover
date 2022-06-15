@@ -49,10 +49,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ImportedViewModels\CorrectionReviewResult.cs" />
     <Compile Include="ImportedViewModels\GanjoorLinkViewModel.cs" />
+    <Compile Include="ImportedViewModels\GanjoorPoemCorrectionViewModel.cs" />
+    <Compile Include="ImportedViewModels\GanjoorVerseVOrderText.cs" />
     <Compile Include="ImportedViewModels\PublicRAppUser.cs" />
     <Compile Include="ImportedViewModels\RAppUserStatus.cs" />
     <Compile Include="ImportedViewModels\ReviewResult.cs" />
+    <Compile Include="ImportedViewModels\VersePosition.cs" />
     <Compile Include="LoginViewModel.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
