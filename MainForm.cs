@@ -240,6 +240,11 @@ namespace BatchGanjoorLinkApprover
                         correction.RhythmResult = CorrectionReviewResult.Approved;
                     }
 
+                    if(correction.RhymeLetters != null)
+                    {
+                        correction.RhymeLettersReviewResult = CorrectionReviewResult.Approved;
+                    }
+
                     foreach (var v in correction.VerseOrderText)
                     {
                         v.Result = CorrectionReviewResult.Approved;
