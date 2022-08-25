@@ -44,9 +44,10 @@ namespace BatchGanjoorLinkApprover
             // btnLogin
             // 
             this.btnLogin.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnLogin.Location = new System.Drawing.Point(131, 79);
+            this.btnLogin.Location = new System.Drawing.Point(196, 118);
+            this.btnLogin.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnLogin.Name = "btnLogin";
-            this.btnLogin.Size = new System.Drawing.Size(75, 23);
+            this.btnLogin.Size = new System.Drawing.Size(112, 34);
             this.btnLogin.TabIndex = 9;
             this.btnLogin.Text = "ورود";
             this.btnLogin.UseVisualStyleBackColor = true;
@@ -54,36 +55,40 @@ namespace BatchGanjoorLinkApprover
             // 
             // txtPassword
             // 
-            this.txtPassword.Location = new System.Drawing.Point(15, 50);
+            this.txtPassword.Location = new System.Drawing.Point(22, 75);
+            this.txtPassword.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.PasswordChar = '*';
             this.txtPassword.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.txtPassword.Size = new System.Drawing.Size(192, 20);
+            this.txtPassword.Size = new System.Drawing.Size(286, 27);
             this.txtPassword.TabIndex = 8;
             // 
             // lblPassword
             // 
             this.lblPassword.AutoSize = true;
-            this.lblPassword.Location = new System.Drawing.Point(249, 52);
+            this.lblPassword.Location = new System.Drawing.Point(374, 78);
+            this.lblPassword.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblPassword.Name = "lblPassword";
-            this.lblPassword.Size = new System.Drawing.Size(43, 13);
+            this.lblPassword.Size = new System.Drawing.Size(63, 19);
             this.lblPassword.TabIndex = 7;
             this.lblPassword.Text = "گذرواژه:";
             // 
             // txtEmail
             // 
-            this.txtEmail.Location = new System.Drawing.Point(15, 25);
+            this.txtEmail.Location = new System.Drawing.Point(22, 38);
+            this.txtEmail.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.txtEmail.Size = new System.Drawing.Size(192, 20);
+            this.txtEmail.Size = new System.Drawing.Size(286, 27);
             this.txtEmail.TabIndex = 6;
             // 
             // lblEmail
             // 
             this.lblEmail.AutoSize = true;
-            this.lblEmail.Location = new System.Drawing.Point(211, 25);
+            this.lblEmail.Location = new System.Drawing.Point(316, 38);
+            this.lblEmail.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblEmail.Name = "lblEmail";
-            this.lblEmail.Size = new System.Drawing.Size(89, 13);
+            this.lblEmail.Size = new System.Drawing.Size(129, 19);
             this.lblEmail.TabIndex = 5;
             this.lblEmail.Text = "پست الکترونیکی:";
             // 
@@ -94,22 +99,19 @@ namespace BatchGanjoorLinkApprover
             this.grpLogin.Controls.Add(this.txtEmail);
             this.grpLogin.Controls.Add(this.txtPassword);
             this.grpLogin.Controls.Add(this.lblPassword);
-            this.grpLogin.Location = new System.Drawing.Point(8, 17);
-            this.grpLogin.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.grpLogin.Location = new System.Drawing.Point(12, 26);
             this.grpLogin.Name = "grpLogin";
-            this.grpLogin.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.grpLogin.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.grpLogin.Size = new System.Drawing.Size(333, 125);
+            this.grpLogin.Size = new System.Drawing.Size(500, 188);
             this.grpLogin.TabIndex = 10;
             this.grpLogin.TabStop = false;
             this.grpLogin.Text = "ورود";
             // 
             // btnApprove
             // 
-            this.btnApprove.Location = new System.Drawing.Point(8, 163);
-            this.btnApprove.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnApprove.Location = new System.Drawing.Point(12, 244);
             this.btnApprove.Name = "btnApprove";
-            this.btnApprove.Size = new System.Drawing.Size(333, 35);
+            this.btnApprove.Size = new System.Drawing.Size(500, 52);
             this.btnApprove.TabIndex = 11;
             this.btnApprove.Text = "تأیید دسته‌ای پیشنهادهای من";
             this.btnApprove.UseVisualStyleBackColor = true;
@@ -118,35 +120,32 @@ namespace BatchGanjoorLinkApprover
             // lblStatus
             // 
             this.lblStatus.AutoSize = true;
-            this.lblStatus.Location = new System.Drawing.Point(8, 211);
-            this.lblStatus.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblStatus.Location = new System.Drawing.Point(12, 316);
             this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new System.Drawing.Size(13, 13);
+            this.lblStatus.Size = new System.Drawing.Size(18, 19);
             this.lblStatus.TabIndex = 12;
             this.lblStatus.Text = "0";
             // 
             // btnApproveEdits
             // 
-            this.btnApproveEdits.Location = new System.Drawing.Point(8, 313);
-            this.btnApproveEdits.Margin = new System.Windows.Forms.Padding(2);
+            this.btnApproveEdits.Location = new System.Drawing.Point(12, 470);
             this.btnApproveEdits.Name = "btnApproveEdits";
-            this.btnApproveEdits.Size = new System.Drawing.Size(333, 35);
+            this.btnApproveEdits.Size = new System.Drawing.Size(500, 52);
             this.btnApproveEdits.TabIndex = 13;
-            this.btnApproveEdits.Text = "تأیید دسته‌ای ویرایش‌های کژدم";
+            this.btnApproveEdits.Text = "تأیید دسته‌ای ویرایش‌های کژدم و خانزادی";
             this.btnApproveEdits.UseVisualStyleBackColor = true;
             this.btnApproveEdits.Click += new System.EventHandler(this.btnApproveEdits_Click);
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(144F, 144F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(668, 542);
+            this.ClientSize = new System.Drawing.Size(1002, 813);
             this.Controls.Add(this.btnApproveEdits);
             this.Controls.Add(this.lblStatus);
             this.Controls.Add(this.btnApprove);
             this.Controls.Add(this.grpLogin);
             this.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "MainForm";
             this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.RightToLeftLayout = true;

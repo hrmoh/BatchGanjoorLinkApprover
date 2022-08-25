@@ -216,7 +216,7 @@ namespace BatchGanjoorLinkApprover
                     }
 
                     
-                    if (correction.UserId != Guid.Parse("5f5fec7e-91db-4155-ea7a-08d95ee3730c"))
+                    if (correction.UserId != Guid.Parse("5f5fec7e-91db-4155-ea7a-08d95ee3730c") && correction.UserId != Guid.Parse("1bb8e457-a922-4764-039e-08da771bc8c7"))
                     {
                         skip++;
                         continue;
