@@ -45,7 +45,7 @@ namespace BatchGanjoorLinkApprover
             // 
             this.btnLogin.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.btnLogin.Location = new System.Drawing.Point(196, 118);
-            this.btnLogin.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnLogin.Margin = new System.Windows.Forms.Padding(4);
             this.btnLogin.Name = "btnLogin";
             this.btnLogin.Size = new System.Drawing.Size(112, 34);
             this.btnLogin.TabIndex = 9;
@@ -56,7 +56,7 @@ namespace BatchGanjoorLinkApprover
             // txtPassword
             // 
             this.txtPassword.Location = new System.Drawing.Point(22, 75);
-            this.txtPassword.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtPassword.Margin = new System.Windows.Forms.Padding(4);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.PasswordChar = '*';
             this.txtPassword.RightToLeft = System.Windows.Forms.RightToLeft.No;
@@ -76,7 +76,7 @@ namespace BatchGanjoorLinkApprover
             // txtEmail
             // 
             this.txtEmail.Location = new System.Drawing.Point(22, 38);
-            this.txtEmail.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtEmail.Margin = new System.Windows.Forms.Padding(4);
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.txtEmail.Size = new System.Drawing.Size(286, 27);
@@ -132,7 +132,7 @@ namespace BatchGanjoorLinkApprover
             this.btnApproveEdits.Name = "btnApproveEdits";
             this.btnApproveEdits.Size = new System.Drawing.Size(500, 52);
             this.btnApproveEdits.TabIndex = 13;
-            this.btnApproveEdits.Text = "تأیید دسته‌ای ویرایش‌های کژدم و خانزادی";
+            this.btnApproveEdits.Text = "تأیید دسته‌ای ویرایش‌های کژدم، خانزادی و یاسین مهدیان";
             this.btnApproveEdits.UseVisualStyleBackColor = true;
             this.btnApproveEdits.Click += new System.EventHandler(this.btnApproveEdits_Click);
             // 

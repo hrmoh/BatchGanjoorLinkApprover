@@ -216,7 +216,10 @@ namespace BatchGanjoorLinkApprover
                     }
 
                     
-                    if (correction.UserId != Guid.Parse("5f5fec7e-91db-4155-ea7a-08d95ee3730c") && correction.UserId != Guid.Parse("1bb8e457-a922-4764-039e-08da771bc8c7"))
+                    if (correction.UserId != Guid.Parse("5f5fec7e-91db-4155-ea7a-08d95ee3730c") //کژدم
+                        && correction.UserId != Guid.Parse("1bb8e457-a922-4764-039e-08da771bc8c7")//خانزادی
+                        && correction.UserId != Guid.Parse("80da71b5-a682-4a81-4956-08da5ec3845b")//یاسین مهدیان
+                        )
                     {
                         skip++;
                         continue;
