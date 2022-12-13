@@ -52,6 +52,7 @@
     <Compile Include="ImportedViewModels\CorrectionReviewResult.cs" />
     <Compile Include="ImportedViewModels\GanjoorLinkViewModel.cs" />
     <Compile Include="ImportedViewModels\GanjoorPoemCorrectionViewModel.cs" />
+    <Compile Include="ImportedViewModels\GanjoorPoemSectionCorrectionViewModel.cs" />
     <Compile Include="ImportedViewModels\GanjoorVerseVOrderText.cs" />
     <Compile Include="ImportedViewModels\PublicRAppUser.cs" />
     <Compile Include="ImportedViewModels\RAppUserStatus.cs" />

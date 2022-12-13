@@ -274,5 +274,98 @@ namespace BatchGanjoorLinkApprover
 
             }
         }
+
+        private async void btnApproveMetres_Click(object sender, EventArgs e)
+        {
+            if (!await TokenIsValid())
+            {
+                MessageBox.Show("لطفا دوباره وارد شوید.");
+                return;
+            }
+
+            using (HttpClient httpClient = new HttpClient())
+            {
+                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Properties.Settings.Default.MuseumToken);
+
+
+                Cursor = Cursors.WaitCursor;
+                Application.DoEvents();
+
+                int skip = 0;
+                do
+                {
+                    lblStatus.Text = $"بعدی ...";
+                    Application.DoEvents();
+
+
+                    HttpResponseMessage response = await httpClient.GetAsync($"https://api.ganjoor.net/api/ganjoor/section/correction/next?skip={skip}");
+                    if (response.StatusCode == HttpStatusCode.NoContent)
+                    {
+
+                        break;
+                    }
+                    if (response.StatusCode != HttpStatusCode.OK)
+                    {
+                        Cursor = Cursors.Default;
+                        MessageBox.Show(response.ToString());
+                        return;
+                    }
+
+                    response.EnsureSuccessStatusCode();
+
+                    var correction = JsonConvert.DeserializeObject<GanjoorPoemSectionCorrectionViewModel>(await response.Content.ReadAsStringAsync());
+                    if (correction == null)
+                    {
+                        break;
+                    }
+
+
+                    if (correction.UserId != Guid.Parse("5f298291-c765-4dd7-0f45-08d747fdebdb")) //کاربر سیستمی
+                    {
+                        skip++;
+                        continue;
+                    }
+                    if (correction.Rhythm2 != null)
+                    {
+                        skip++;
+                        continue;
+                    }
+
+                    lblStatus.Text = "بررسی ...";
+                    Application.DoEvents();
+
+                    
+                    if (correction.Rhythm != null)
+                    {
+                        correction.RhythmResult = CorrectionReviewResult.Approved;
+                    }
+
+                    if (correction.RhymeLetters != null)
+                    {
+                        correction.RhymeLettersReviewResult = CorrectionReviewResult.Approved;
+                    }
+
+                   
+
+
+                    HttpResponseMessage approveResponse = await httpClient.PostAsync($"https://api.ganjoor.net/api/ganjoor/section/moderate",
+                        new StringContent(JsonConvert.SerializeObject(correction), Encoding.UTF8, "application/json")
+                        );
+                    if (approveResponse.StatusCode == HttpStatusCode.OK)
+                    {
+                        approveResponse.EnsureSuccessStatusCode();
+                    }
+                    else
+                    {
+                        skip++;
+                    }
+
+                } while (true);
+
+                Cursor = Cursors.Default;
+                lblStatus.Text = "پایان";
+
+            }
+        }
     }
 }

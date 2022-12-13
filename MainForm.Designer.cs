@@ -38,6 +38,7 @@ namespace BatchGanjoorLinkApprover
             this.btnApprove = new System.Windows.Forms.Button();
             this.lblStatus = new System.Windows.Forms.Label();
             this.btnApproveEdits = new System.Windows.Forms.Button();
+            this.btnApproveMetres = new System.Windows.Forms.Button();
             this.grpLogin.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -136,11 +137,22 @@ namespace BatchGanjoorLinkApprover
             this.btnApproveEdits.UseVisualStyleBackColor = true;
             this.btnApproveEdits.Click += new System.EventHandler(this.btnApproveEdits_Click);
             // 
+            // btnApproveMetres
+            // 
+            this.btnApproveMetres.Location = new System.Drawing.Point(12, 578);
+            this.btnApproveMetres.Name = "btnApproveMetres";
+            this.btnApproveMetres.Size = new System.Drawing.Size(500, 52);
+            this.btnApproveMetres.TabIndex = 14;
+            this.btnApproveMetres.Text = "تأیید دسته‌ای وزنیابی‌های سیستمی";
+            this.btnApproveMetres.UseVisualStyleBackColor = true;
+            this.btnApproveMetres.Click += new System.EventHandler(this.btnApproveMetres_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(144F, 144F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(1002, 813);
+            this.Controls.Add(this.btnApproveMetres);
             this.Controls.Add(this.btnApproveEdits);
             this.Controls.Add(this.lblStatus);
             this.Controls.Add(this.btnApprove);
@@ -168,6 +180,7 @@ namespace BatchGanjoorLinkApprover
         private System.Windows.Forms.Button btnApprove;
         private System.Windows.Forms.Label lblStatus;
         private System.Windows.Forms.Button btnApproveEdits;
+        private System.Windows.Forms.Button btnApproveMetres;
     }
 }
 
