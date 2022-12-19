@@ -320,7 +320,11 @@ namespace BatchGanjoorLinkApprover
                     }
 
 
-                    if (correction.UserId != Guid.Parse("5f298291-c765-4dd7-0f45-08d747fdebdb")) //کاربر سیستمی
+                    if (
+                        correction.UserId != Guid.Parse("5f298291-c765-4dd7-0f45-08d747fdebdb")
+                        &&
+                         correction.UserId != Guid.Parse("a9cb3463-e442-455a-12a3-08d72ca64fca")
+                        ) //کاربر سیستمی
                     {
                         skip++;
                         continue;
