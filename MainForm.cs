@@ -219,6 +219,12 @@ namespace BatchGanjoorLinkApprover
                     if (correction.UserId != Guid.Parse("5f5fec7e-91db-4155-ea7a-08d95ee3730c") //کژدم
                         && correction.UserId != Guid.Parse("1bb8e457-a922-4764-039e-08da771bc8c7")//خانزادی
                         && correction.UserId != Guid.Parse("80da71b5-a682-4a81-4956-08da5ec3845b")//یاسین مهدیان
+                        && correction.UserId != Guid.Parse("615de499-fab9-4d4e-5c82-08db50ff5d57")//Dr. ortegoli
+                        && correction.UserId != Guid.Parse("542a5920-9928-4f45-28a1-08d91e912ac2")//مجید گزیان
+                        && correction.UserId != Guid.Parse("28d87825-824f-4e1b-cec3-08d9dd717ff9")//شهاب عمرانی
+                        && correction.UserId != Guid.Parse("f749edce-f937-433f-4d98-08d98c4e7811")//حافظ سعدی
+                        && correction.UserId != Guid.Parse("654e4047-acdf-4f23-ca11-08d919575382")//آرام نوبری نیا
+                        && correction.UserId != Guid.Parse("f53b5699-434f-42f4-491b-08da8818a70a")//مسعود
                         )
                     {
                         skip++;
