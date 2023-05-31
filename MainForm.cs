@@ -228,6 +228,8 @@ namespace BatchGanjoorLinkApprover
                         && correction.UserId != Guid.Parse("90714860-6bb3-4b7c-1e6b-08d9aeb170b9")//ادیب
                         && correction.UserId != Guid.Parse("efe21afa-ee9f-4b84-f18e-08d94833c888")//آروین یوسفی
                         && correction.UserId != Guid.Parse("5f921847-2ad7-4fb2-4c11-08d957209196")//ابوالفضل
+                        && correction.UserId != Guid.Parse("de749d89-64b3-47b2-5a89-08d9f95f9caf")//فرانسوا کاظمی‌نیا 
+                        && correction.UserId != Guid.Parse("835ff316-4d51-401a-889a-08d95a208137")//مجتبی 
                         )
                     {
                         skip++;
