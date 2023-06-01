@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using BatchGanjoorLinkApprover.Properties;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RMuseum.Models.Ganjoor;
 using RMuseum.Models.Ganjoor.ViewModels;
@@ -19,8 +20,18 @@ namespace BatchGanjoorLinkApprover
         {
             InitializeComponent();
 
-            txtEmail.Text = Properties.Settings.Default.Email;
-            txtPassword.Text = Properties.Settings.Default.Password;
+            txtEmail.Text = Settings.Default.Email;
+            txtPassword.Text = Settings.Default.Password;
+
+            if(Settings.Default.TrustedUserIdSet != null )
+            {
+                foreach (var item in Settings.Default.TrustedUserIdSet)
+                {
+                    lstTrustedUsers.Items.Add(item);
+                }
+            }
+            
+           
 
         }
 
@@ -71,7 +82,7 @@ namespace BatchGanjoorLinkApprover
         {
             try
             {
-                if (string.IsNullOrEmpty(Properties.Settings.Default.MuseumToken))
+                if (string.IsNullOrEmpty(Settings.Default.MuseumToken))
                     return false;
                 using (HttpClient httpClient = new HttpClient())
                 {
@@ -215,7 +226,21 @@ namespace BatchGanjoorLinkApprover
                         break;
                     }
 
-                    
+                    bool trusted = false;
+                    foreach (var item in Settings.Default.TrustedUserIdSet)
+                    {
+                        if(correction.UserId == Guid.Parse(item))
+                        {
+                            trusted = true; break;
+                        }
+                    }
+
+                    if (!trusted) { 
+                        skip++;
+                        continue;
+                     }
+
+                    /*
                     if (correction.UserId != Guid.Parse("5f5fec7e-91db-4155-ea7a-08d95ee3730c") //کژدم
                         && correction.UserId != Guid.Parse("1bb8e457-a922-4764-039e-08da771bc8c7")//خانزادی
                         && correction.UserId != Guid.Parse("80da71b5-a682-4a81-4956-08da5ec3845b")//یاسین مهدیان
@@ -235,6 +260,7 @@ namespace BatchGanjoorLinkApprover
                         skip++;
                         continue;
                     }
+                    */
                     if (correction.Rhythm2 != null)
                     {
                         skip++;
@@ -380,6 +406,60 @@ namespace BatchGanjoorLinkApprover
                 Cursor = Cursors.Default;
                 lblStatus.Text = "پایان";
 
+            }
+        }
+
+        private void btnAddTrusted_Click(object sender, EventArgs e)
+        {
+            if (Settings.Default.TrustedUserIdSet == null)
+            {
+                Settings.Default.TrustedUserIdSet = new System.Collections.Specialized.StringCollection();
+            }
+            Settings.Default.TrustedUserIdSet.Add(txtUserId.Text);
+            Settings.Default.Save();
+
+            lstTrustedUsers.Items.Add(txtUserId.Text);
+        }
+
+        private void btnDelTrusted_Click(object sender, EventArgs e)
+        {
+            Settings.Default.TrustedUserIdSet.Remove(lstTrustedUsers.SelectedItem.ToString());
+            Settings.Default.Save();
+
+            lstTrustedUsers.Items.Remove(lstTrustedUsers.SelectedItem.ToString());
+        }
+
+        private async void lstTrustedUsers_DoubleClickAsync(object sender, EventArgs e)
+        {
+            if (lstTrustedUsers.SelectedItem != null)
+            {
+                
+                using (HttpClient httpClient = new HttpClient())
+                {
+                    httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Properties.Settings.Default.MuseumToken);
+
+                    lblStatus.Text = "دریافت اطلاعات کاربر ...";
+
+                    Cursor = Cursors.WaitCursor;
+                    Application.DoEvents();
+
+
+
+                    HttpResponseMessage response = await httpClient.GetAsync($"https://api.ganjoor.net/api/users/{lstTrustedUsers.SelectedItem}");
+                    if (response.StatusCode != HttpStatusCode.OK)
+                    {
+                        Cursor = Cursors.Default;
+                        MessageBox.Show(response.ToString());
+                        return;
+                    }
+
+                    response.EnsureSuccessStatusCode();
+
+                    var result = JObject.Parse(await response.Content.ReadAsStringAsync());
+
+                    MessageBox.Show(result["nickName"].ToString());
+
+                }
             }
         }
     }
