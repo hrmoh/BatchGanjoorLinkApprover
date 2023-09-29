@@ -31,7 +31,13 @@ namespace BatchGanjoorLinkApprover
                 }
             }
             
-           
+            if(Settings.Default.ProtectedCategoryIdSet != null )
+            {
+                foreach (var item in Settings.Default.ProtectedCategoryIdSet)
+                {
+                    lstProtectedCatgories.Items.Add(item);
+                }
+            }
 
         }
 
@@ -437,6 +443,56 @@ namespace BatchGanjoorLinkApprover
                     var result = JObject.Parse(await response.Content.ReadAsStringAsync());
 
                     MessageBox.Show(result["nickName"].ToString());
+
+                }
+            }
+        }
+
+        private void btnAddProtected_Click(object sender, EventArgs e)
+        {
+            if(!int.TryParse(txtCategoryId.Text, out var _))
+            {
+                return;
+            }
+            if (Settings.Default.ProtectedCategoryIdSet == null)
+            {
+                Settings.Default.ProtectedCategoryIdSet = new System.Collections.Specialized.StringCollection();
+            }
+            Settings.Default.ProtectedCategoryIdSet.Add(txtCategoryId.Text);
+            Settings.Default.Save();
+
+            lstProtectedCatgories.Items.Add(txtCategoryId.Text);
+        }
+
+        private async void lstProtectedCatgories_DoubleClick(object sender, EventArgs e)
+        {
+            if (lstProtectedCatgories.SelectedItem != null)
+            {
+
+                using (HttpClient httpClient = new HttpClient())
+                {
+                    httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Properties.Settings.Default.MuseumToken);
+
+                    lblStatus.Text = "دریافت اطلاعات بخش ...";
+
+                    Cursor = Cursors.WaitCursor;
+                    Application.DoEvents();
+
+
+
+                    HttpResponseMessage response = await httpClient.GetAsync($"https://api.ganjoor.net/api/ganjoor/cat/{lstProtectedCatgories.SelectedItem}?poems=false&mainSections=false");
+                    if (response.StatusCode != HttpStatusCode.OK)
+                    {
+                        Cursor = Cursors.Default;
+                        MessageBox.Show(response.ToString());
+                        return;
+                    }
+
+                    response.EnsureSuccessStatusCode();
+
+                    var result = JObject.Parse(await response.Content.ReadAsStringAsync());
+
+                    MessageBox.Show(result["poet"]["name"] + " : "+ result["cat"]["title"].ToString());
 
                 }
             }
