@@ -244,8 +244,32 @@ namespace BatchGanjoorLinkApprover
                     if (!trusted) { 
                         skip++;
                         continue;
-                     }
-  
+                    }
+
+                    HttpResponseMessage resPoem = await httpClient.GetAsync($"https://api.ganjoor.net/api/ganjoor/poem/{correction.PoemId}?catInfo=true&catPoems=false&rhymes=false&recitations=false&images=false&songs=false&comments=false&verseDetails=false&navigation=false&relatedpoems=false");
+                    if (resPoem.StatusCode != HttpStatusCode.OK)
+                    {
+                        Cursor = Cursors.Default;
+                        MessageBox.Show(resPoem.ToString());
+                        return;
+                    }
+
+                    resPoem.EnsureSuccessStatusCode();
+
+                    var result = JObject.Parse(await resPoem.Content.ReadAsStringAsync());
+
+                    string catId = result["category"]["cat"]["id"].ToString();
+
+                    foreach (var item in Settings.Default.ProtectedCategoryIdSet)
+                    {
+                        if(item.ToString() == catId)
+                        {
+                            skip++;
+                            continue;
+                        }
+                    }
+
+
                     if (correction.Rhythm2 != null)
                     {
                         skip++;
@@ -480,17 +504,17 @@ namespace BatchGanjoorLinkApprover
 
 
 
-                    HttpResponseMessage response = await httpClient.GetAsync($"https://api.ganjoor.net/api/ganjoor/cat/{lstProtectedCatgories.SelectedItem}?poems=false&mainSections=false");
-                    if (response.StatusCode != HttpStatusCode.OK)
+                    HttpResponseMessage resCat = await httpClient.GetAsync($"https://api.ganjoor.net/api/ganjoor/cat/{lstProtectedCatgories.SelectedItem}?poems=false&mainSections=false");
+                    if (resCat.StatusCode != HttpStatusCode.OK)
                     {
                         Cursor = Cursors.Default;
-                        MessageBox.Show(response.ToString());
+                        MessageBox.Show(resCat.ToString());
                         return;
                     }
 
-                    response.EnsureSuccessStatusCode();
+                    resCat.EnsureSuccessStatusCode();
 
-                    var result = JObject.Parse(await response.Content.ReadAsStringAsync());
+                    var result = JObject.Parse(await resCat.Content.ReadAsStringAsync());
 
                     MessageBox.Show(result["poet"]["name"] + " : "+ result["cat"]["title"].ToString());
 
