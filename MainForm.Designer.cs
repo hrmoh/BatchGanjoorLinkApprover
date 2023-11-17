@@ -47,6 +47,7 @@ namespace BatchGanjoorLinkApprover
             this.lblProtectedCategories = new System.Windows.Forms.Label();
             this.btnAddProtected = new System.Windows.Forms.Button();
             this.txtCategoryId = new System.Windows.Forms.TextBox();
+            this.btnNaskban = new System.Windows.Forms.Button();
             this.grpLogin.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -167,7 +168,7 @@ namespace BatchGanjoorLinkApprover
             this.lstTrustedUsers.Location = new System.Drawing.Point(347, 57);
             this.lstTrustedUsers.Name = "lstTrustedUsers";
             this.lstTrustedUsers.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.lstTrustedUsers.Size = new System.Drawing.Size(290, 290);
+            this.lstTrustedUsers.Size = new System.Drawing.Size(290, 277);
             this.lstTrustedUsers.TabIndex = 15;
             this.lstTrustedUsers.DoubleClick += new System.EventHandler(this.lstTrustedUsers_DoubleClickAsync);
             // 
@@ -205,7 +206,7 @@ namespace BatchGanjoorLinkApprover
             this.lstProtectedCatgories.Location = new System.Drawing.Point(10, 390);
             this.lstProtectedCatgories.Name = "lstProtectedCatgories";
             this.lstProtectedCatgories.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.lstProtectedCatgories.Size = new System.Drawing.Size(626, 69);
+            this.lstProtectedCatgories.Size = new System.Drawing.Size(626, 56);
             this.lstProtectedCatgories.TabIndex = 19;
             this.lstProtectedCatgories.DoubleClick += new System.EventHandler(this.lstProtectedCatgories_DoubleClick);
             // 
@@ -237,11 +238,23 @@ namespace BatchGanjoorLinkApprover
             this.txtCategoryId.Size = new System.Drawing.Size(235, 20);
             this.txtCategoryId.TabIndex = 22;
             // 
+            // btnNaskban
+            // 
+            this.btnNaskban.Location = new System.Drawing.Point(10, 464);
+            this.btnNaskban.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnNaskban.Name = "btnNaskban";
+            this.btnNaskban.Size = new System.Drawing.Size(624, 34);
+            this.btnNaskban.TabIndex = 23;
+            this.btnNaskban.Text = "درج ارتباطات تأیید شدهٔ نسک‌بان";
+            this.btnNaskban.UseVisualStyleBackColor = true;
+            this.btnNaskban.Click += new System.EventHandler(this.btnNaskban_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(647, 484);
+            this.ClientSize = new System.Drawing.Size(647, 514);
+            this.Controls.Add(this.btnNaskban);
             this.Controls.Add(this.txtCategoryId);
             this.Controls.Add(this.btnAddProtected);
             this.Controls.Add(this.lblProtectedCategories);
@@ -288,6 +301,7 @@ namespace BatchGanjoorLinkApprover
         private System.Windows.Forms.Label lblProtectedCategories;
         private System.Windows.Forms.Button btnAddProtected;
         private System.Windows.Forms.TextBox txtCategoryId;
+        private System.Windows.Forms.Button btnNaskban;
     }
 }
 
