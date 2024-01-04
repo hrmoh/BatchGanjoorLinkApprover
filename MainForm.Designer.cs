@@ -48,6 +48,7 @@ namespace BatchGanjoorLinkApprover
             this.btnAddProtected = new System.Windows.Forms.Button();
             this.txtCategoryId = new System.Windows.Forms.TextBox();
             this.btnNaskban = new System.Windows.Forms.Button();
+            this.btnApproveUserMeters = new System.Windows.Forms.Button();
             this.grpLogin.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -142,7 +143,7 @@ namespace BatchGanjoorLinkApprover
             // 
             // btnApproveEdits
             // 
-            this.btnApproveEdits.Location = new System.Drawing.Point(6, 270);
+            this.btnApproveEdits.Location = new System.Drawing.Point(8, 241);
             this.btnApproveEdits.Margin = new System.Windows.Forms.Padding(2);
             this.btnApproveEdits.Name = "btnApproveEdits";
             this.btnApproveEdits.Size = new System.Drawing.Size(334, 34);
@@ -249,11 +250,23 @@ namespace BatchGanjoorLinkApprover
             this.btnNaskban.UseVisualStyleBackColor = true;
             this.btnNaskban.Click += new System.EventHandler(this.btnNaskban_Click);
             // 
+            // btnApproveUserMeters
+            // 
+            this.btnApproveUserMeters.Location = new System.Drawing.Point(8, 276);
+            this.btnApproveUserMeters.Margin = new System.Windows.Forms.Padding(2);
+            this.btnApproveUserMeters.Name = "btnApproveUserMeters";
+            this.btnApproveUserMeters.Size = new System.Drawing.Size(334, 34);
+            this.btnApproveUserMeters.TabIndex = 24;
+            this.btnApproveUserMeters.Text = "تأیید دسته‌ای وزنیابی‌های کاربران مورد اعتماد از طریق ویرایشگر قطعات";
+            this.btnApproveUserMeters.UseVisualStyleBackColor = true;
+            this.btnApproveUserMeters.Click += new System.EventHandler(this.btnApproveUserMeters_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(647, 514);
+            this.Controls.Add(this.btnApproveUserMeters);
             this.Controls.Add(this.btnNaskban);
             this.Controls.Add(this.txtCategoryId);
             this.Controls.Add(this.btnAddProtected);
@@ -302,6 +315,7 @@ namespace BatchGanjoorLinkApprover
         private System.Windows.Forms.Button btnAddProtected;
         private System.Windows.Forms.TextBox txtCategoryId;
         private System.Windows.Forms.Button btnNaskban;
+        private System.Windows.Forms.Button btnApproveUserMeters;
     }
 }
 

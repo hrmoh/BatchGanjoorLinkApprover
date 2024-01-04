@@ -209,5 +209,40 @@ namespace RMuseum.Models.Ganjoor.ViewModels
         /// rhyme letters review result
         /// </summary>
         public CorrectionReviewResult RhymeLettersReviewResult { get; set; }
+
+        /// <summary>
+        /// language
+        /// </summary>
+        public string Language { get; set; }
+
+        /// <summary>
+        /// original language
+        /// </summary>
+        public string OriginalLanguage { get; set; }
+
+        /// <summary>
+        /// language review resukt
+        /// </summary>
+        public CorrectionReviewResult LanguageReviewResult { get; set; }
+
+        /// <summary>
+        /// poem format
+        /// </summary>
+        public GanjoorPoemFormat? PoemFormat { get; set; }
+
+        /// <summary>
+        /// original poem format
+        /// </summary>
+        public GanjoorPoemFormat? OriginalPoemFormat { get; set; }
+
+        /// <summary>
+        /// poem format review result
+        /// </summary>
+        public CorrectionReviewResult PoemFormatReviewResult { get; set; }
+
+        /// <summary>
+        /// hide the editors name
+        /// </summary>
+        public bool HideMyName { get; set; }
     }
 }
