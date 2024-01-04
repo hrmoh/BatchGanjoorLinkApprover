@@ -55,7 +55,7 @@ namespace BatchGanjoorLinkApprover
             // 
             this.btnLogin.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.btnLogin.Location = new System.Drawing.Point(130, 78);
-            this.btnLogin.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnLogin.Margin = new System.Windows.Forms.Padding(2);
             this.btnLogin.Name = "btnLogin";
             this.btnLogin.Size = new System.Drawing.Size(74, 22);
             this.btnLogin.TabIndex = 9;
@@ -66,7 +66,7 @@ namespace BatchGanjoorLinkApprover
             // txtPassword
             // 
             this.txtPassword.Location = new System.Drawing.Point(14, 50);
-            this.txtPassword.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtPassword.Margin = new System.Windows.Forms.Padding(2);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.PasswordChar = '*';
             this.txtPassword.RightToLeft = System.Windows.Forms.RightToLeft.No;
@@ -86,7 +86,7 @@ namespace BatchGanjoorLinkApprover
             // txtEmail
             // 
             this.txtEmail.Location = new System.Drawing.Point(14, 26);
-            this.txtEmail.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtEmail.Margin = new System.Windows.Forms.Padding(2);
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.txtEmail.Size = new System.Drawing.Size(192, 20);
@@ -110,9 +110,9 @@ namespace BatchGanjoorLinkApprover
             this.grpLogin.Controls.Add(this.txtPassword);
             this.grpLogin.Controls.Add(this.lblPassword);
             this.grpLogin.Location = new System.Drawing.Point(8, 18);
-            this.grpLogin.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.grpLogin.Margin = new System.Windows.Forms.Padding(2);
             this.grpLogin.Name = "grpLogin";
-            this.grpLogin.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.grpLogin.Padding = new System.Windows.Forms.Padding(2);
             this.grpLogin.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.grpLogin.Size = new System.Drawing.Size(334, 126);
             this.grpLogin.TabIndex = 10;
@@ -122,11 +122,11 @@ namespace BatchGanjoorLinkApprover
             // btnApprove
             // 
             this.btnApprove.Location = new System.Drawing.Point(8, 162);
-            this.btnApprove.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnApprove.Margin = new System.Windows.Forms.Padding(2);
             this.btnApprove.Name = "btnApprove";
             this.btnApprove.Size = new System.Drawing.Size(334, 34);
             this.btnApprove.TabIndex = 11;
-            this.btnApprove.Text = "تأیید دسته‌ای پیشنهادهای من";
+            this.btnApprove.Text = "تأیید دسته‌ای پیشنهادهای من برای ارتباطات گنجینه گنجور";
             this.btnApprove.UseVisualStyleBackColor = true;
             this.btnApprove.Click += new System.EventHandler(this.btnApprove_Click);
             // 
@@ -143,7 +143,7 @@ namespace BatchGanjoorLinkApprover
             // btnApproveEdits
             // 
             this.btnApproveEdits.Location = new System.Drawing.Point(6, 270);
-            this.btnApproveEdits.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnApproveEdits.Margin = new System.Windows.Forms.Padding(2);
             this.btnApproveEdits.Name = "btnApproveEdits";
             this.btnApproveEdits.Size = new System.Drawing.Size(334, 34);
             this.btnApproveEdits.TabIndex = 13;
@@ -154,7 +154,7 @@ namespace BatchGanjoorLinkApprover
             // btnApproveMetres
             // 
             this.btnApproveMetres.Location = new System.Drawing.Point(8, 312);
-            this.btnApproveMetres.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnApproveMetres.Margin = new System.Windows.Forms.Padding(2);
             this.btnApproveMetres.Name = "btnApproveMetres";
             this.btnApproveMetres.Size = new System.Drawing.Size(334, 34);
             this.btnApproveMetres.TabIndex = 14;
@@ -241,7 +241,7 @@ namespace BatchGanjoorLinkApprover
             // btnNaskban
             // 
             this.btnNaskban.Location = new System.Drawing.Point(10, 464);
-            this.btnNaskban.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnNaskban.Margin = new System.Windows.Forms.Padding(2);
             this.btnNaskban.Name = "btnNaskban";
             this.btnNaskban.Size = new System.Drawing.Size(624, 34);
             this.btnNaskban.TabIndex = 23;
@@ -269,7 +269,7 @@ namespace BatchGanjoorLinkApprover
             this.Controls.Add(this.btnApprove);
             this.Controls.Add(this.grpLogin);
             this.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "MainForm";
             this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.RightToLeftLayout = true;
