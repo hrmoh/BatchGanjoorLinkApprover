@@ -552,9 +552,8 @@ namespace BatchGanjoorLinkApprover
 
                 resCat.EnsureSuccessStatusCode();
 
-                var result = int.Parse(await resCat.Content.ReadAsStringAsync());
-
-                MessageBox.Show($"{result} مورد همگام شد.");
+               
+                MessageBox.Show("همگامسازی شروع شد.");
 
                 lblStatus.Text = "آماده";
 
@@ -673,6 +672,43 @@ namespace BatchGanjoorLinkApprover
 
                 Cursor = Cursors.Default;
                 lblStatus.Text = "پایان";
+
+            }
+        }
+
+        private async void btnNaskbanFix_Click(object sender, EventArgs e)
+        {
+            using (HttpClient httpClient = new HttpClient())
+            {
+                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Properties.Settings.Default.MuseumToken);
+
+                lblStatus.Text = "فراخوانی ...";
+
+                Cursor = Cursors.WaitCursor;
+                Application.DoEvents();
+
+                LoginViewModel model = new LoginViewModel()
+                {
+                    Username = txtEmail.Text,
+                    Password = txtPassword.Text,
+                    ClientAppName = "Desktop Ganjoor",
+                    Language = "fa-IR"
+                };
+                var stringContent = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json");
+                HttpResponseMessage resCat = await httpClient.PutAsync($"https://api.ganjoor.net/api/ganjoor/naskban", stringContent);
+                if (resCat.StatusCode != HttpStatusCode.OK)
+                {
+                    Cursor = Cursors.Default;
+                    MessageBox.Show(resCat.ToString());
+                    return;
+                }
+
+                resCat.EnsureSuccessStatusCode();
+
+
+                MessageBox.Show("تصحیح شروع شد.");
+
+                lblStatus.Text = "آماده";
 
             }
         }
