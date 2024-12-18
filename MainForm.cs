@@ -5,10 +5,12 @@ using RMuseum.Models.Ganjoor;
 using RMuseum.Models.Ganjoor.ViewModels;
 using RMuseum.Models.GanjoorIntegration.ViewModels;
 using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Reflection;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -710,6 +712,78 @@ namespace BatchGanjoorLinkApprover
 
                 lblStatus.Text = "آماده";
 
+            }
+        }
+
+        private async void btnAIImageGenerate_Click(object sender, EventArgs e)
+        {
+            int lastPoetId = int.Parse(txtPoetId.Text);
+            using (HttpClient httpClient = new HttpClient())
+            {
+                for (int poetId = lastPoetId; poetId > 1; poetId--)
+                {
+                    lblStatus.Text = "فراخوانی ...";
+
+                    Cursor = Cursors.WaitCursor;
+                    Application.DoEvents();
+                    HttpResponseMessage responsePoet = await httpClient.GetAsync($"https://api.ganjoor.net/api/ganjoor/poet/{poetId}");
+                    if (responsePoet.StatusCode != HttpStatusCode.OK)
+                    {
+                        Cursor = Cursors.Default;
+                        MessageBox.Show(responsePoet.ToString());
+                        return;
+                    }
+
+                    responsePoet.EnsureSuccessStatusCode();
+
+                    dynamic poet = JsonConvert.DeserializeObject<dynamic>(await responsePoet.Content.ReadAsStringAsync());
+
+                    int catId = (int)poet.cat.id;
+
+                    List<int> poemlist = new List<int>();   
+                    await catPoems(httpClient, catId, poemlist);
+
+                    foreach (int poemId in poemlist)
+                    {
+                        HttpResponseMessage response = await httpClient.GetAsync($"https://api.ganjoor.net/api/ganjoor/poem/{poemId}?catInfo=false&catPoems=false&rhymes=false&recitations=false&images=false&songs=false&comments=false&verseDetails=false&navigation=false&relatedpoems=false");
+                        if (response.StatusCode != HttpStatusCode.OK)
+                        {
+                            Cursor = Cursors.Default;
+                            MessageBox.Show(response.ToString());
+                            return;
+                        }
+                        response.EnsureSuccessStatusCode();
+                        dynamic poem = JsonConvert.DeserializeObject<dynamic>(await response.Content.ReadAsStringAsync());
+
+                        string title = poem.title;
+                        string plainText = poem.plainText;
+
+                        MessageBox.Show(title + Environment.NewLine + plainText);
+                    }
+                }
+            }
+        }
+
+        private async Task catPoems(HttpClient httpClient, int catId, List<int> poemlist)
+        {
+            HttpResponseMessage response = await httpClient.GetAsync($"https://api.ganjoor.net/api/ganjoor/cat/{catId}?poems=true&mainSections=false");
+            if (response.StatusCode != HttpStatusCode.OK)
+            {
+                Cursor = Cursors.Default;
+                MessageBox.Show(response.ToString());
+                return;
+            }
+            response.EnsureSuccessStatusCode();
+            dynamic cat = JsonConvert.DeserializeObject<dynamic>(await response.Content.ReadAsStringAsync());
+
+            foreach (dynamic poem in cat.cat.poems)
+            {
+                poemlist.Add((int)poem.id);
+            }
+
+            foreach (dynamic child in cat.cat.children)
+            {
+                await catPoems(httpClient, (int)child.id, poemlist);
             }
         }
     }
