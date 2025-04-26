@@ -26,15 +26,15 @@ namespace BatchGanjoorLinkApprover
             txtEmail.Text = Settings.Default.Email;
             txtPassword.Text = Settings.Default.Password;
 
-            if(Settings.Default.TrustedUserIdSet != null )
+            if (Settings.Default.TrustedUserIdSet != null)
             {
                 foreach (var item in Settings.Default.TrustedUserIdSet)
                 {
                     lstTrustedUsers.Items.Add(item);
                 }
             }
-            
-            if(Settings.Default.ProtectedCategoryIdSet != null )
+
+            if (Settings.Default.ProtectedCategoryIdSet != null)
             {
                 foreach (var item in Settings.Default.ProtectedCategoryIdSet)
                 {
@@ -132,7 +132,7 @@ namespace BatchGanjoorLinkApprover
 
         private async void btnApprove_Click(object sender, EventArgs e)
         {
-            if(!await TokenIsValid())
+            if (!await TokenIsValid())
             {
                 MessageBox.Show("لطفا دوباره وارد شوید.");
                 return;
@@ -165,19 +165,19 @@ namespace BatchGanjoorLinkApprover
 
                 Application.DoEvents();
 
-                foreach(GanjoorLinkViewModel link in links)
+                foreach (GanjoorLinkViewModel link in links)
                 {
-                    if(link.SuggestedBy.Id == Properties.Settings.Default.UserId)
+                    if (link.SuggestedBy.Id == Properties.Settings.Default.UserId)
                     {
                         int nRetry = 0;
-                        while(true)
+                        while (true)
                         {
                             nRetry++;
-                            lblStatus.Text = $"{nRetry} : {link.GanjoorUrl}" ;
+                            lblStatus.Text = $"{nRetry} : {link.GanjoorUrl}";
                             Application.DoEvents();
 
                             HttpResponseMessage approveResponse = await httpClient.PutAsync($"https://api.ganjoor.net/api/artifacts/ganjoor/review/{link.Id}/1", null);
-                            if(approveResponse.StatusCode == HttpStatusCode.OK)
+                            if (approveResponse.StatusCode == HttpStatusCode.OK)
                             {
                                 approveResponse.EnsureSuccessStatusCode();
                                 break;
@@ -213,11 +213,11 @@ namespace BatchGanjoorLinkApprover
                     lblStatus.Text = $"بعدی ...";
                     Application.DoEvents();
 
-                    
-                    HttpResponseMessage response = await httpClient.GetAsync($"https://api.ganjoor.net/api/ganjoor/poem/correction/next?skip={skip}"); 
-                    if(response.StatusCode == HttpStatusCode.NoContent)
+
+                    HttpResponseMessage response = await httpClient.GetAsync($"https://api.ganjoor.net/api/ganjoor/poem/correction/next?skip={skip}");
+                    if (response.StatusCode == HttpStatusCode.NoContent)
                     {
-                        
+
                         break;
                     }
                     if (response.StatusCode != HttpStatusCode.OK)
@@ -230,7 +230,7 @@ namespace BatchGanjoorLinkApprover
                     response.EnsureSuccessStatusCode();
 
                     var correction = JsonConvert.DeserializeObject<GanjoorPoemCorrectionViewModel>(await response.Content.ReadAsStringAsync());
-                    if(correction == null)
+                    if (correction == null)
                     {
                         break;
                     }
@@ -238,13 +238,14 @@ namespace BatchGanjoorLinkApprover
                     bool trusted = false;
                     foreach (var item in Settings.Default.TrustedUserIdSet)
                     {
-                        if(correction.UserId == Guid.Parse(item))
+                        if (correction.UserId == Guid.Parse(item))
                         {
                             trusted = true; break;
                         }
                     }
 
-                    if (!trusted) { 
+                    if (!trusted)
+                    {
                         skip++;
                         continue;
                     }
@@ -262,15 +263,15 @@ namespace BatchGanjoorLinkApprover
                     var result = JObject.Parse(await resPoem.Content.ReadAsStringAsync());
 
                     string catId = result["category"]["cat"]["id"].ToString();
-
-                    foreach (var item in Settings.Default.ProtectedCategoryIdSet)
-                    {
-                        if(item.ToString() == catId)
+                    if (Settings.Default.ProtectedCategoryIdSet != null)
+                        foreach (var item in Settings.Default.ProtectedCategoryIdSet)
                         {
-                            skip++;
-                            continue;
+                            if (item.ToString() == catId)
+                            {
+                                skip++;
+                                continue;
+                            }
                         }
-                    }
 
 
                     if (correction.Rhythm2 != null)
@@ -278,7 +279,7 @@ namespace BatchGanjoorLinkApprover
                         skip++;
                         continue;
                     }
-                    
+
                     lblStatus.Text = "بررسی ...";
                     Application.DoEvents();
 
@@ -286,23 +287,39 @@ namespace BatchGanjoorLinkApprover
                     {
                         correction.Result = CorrectionReviewResult.Approved;
                     }
-                    
-                    if(correction.Rhythm != null)
+
+                    if (correction.Rhythm != null)
                     {
                         correction.RhythmResult = CorrectionReviewResult.Approved;
                     }
 
-                    if(correction.RhymeLetters != null)
+                    if (correction.RhymeLetters != null)
                     {
                         correction.RhymeLettersReviewResult = CorrectionReviewResult.Approved;
                     }
 
-                    foreach (var v in correction.VerseOrderText)
+                    if(correction.PoemSummary != null)
                     {
-                        v.Result = CorrectionReviewResult.Approved;
+                        correction.SummaryReviewResult = CorrectionReviewResult.Approved;
                     }
 
-                    
+                    foreach (var v in correction.VerseOrderText)
+                    {
+                        if (!string.IsNullOrEmpty(v.Text))
+                        {
+                            v.Result = CorrectionReviewResult.Approved;
+                        }
+                        if (!string.IsNullOrEmpty(v.CoupletSummary))
+                        {
+                            if(v.Result == CorrectionReviewResult.NotReviewed)
+                            {
+                                v.Result = CorrectionReviewResult.NotChanged;
+                            }
+                            v.SummaryReviewResult = CorrectionReviewResult.Approved;
+                        }
+                    }
+
+
 
                     HttpResponseMessage approveResponse = await httpClient.PostAsync($"https://api.ganjoor.net/api/ganjoor/correction/moderate",
                         new StringContent(JsonConvert.SerializeObject(correction), Encoding.UTF8, "application/json")
@@ -313,6 +330,11 @@ namespace BatchGanjoorLinkApprover
                     }
                     else
                     {
+                        var err = await approveResponse.Content.ReadAsStringAsync();
+                        if(err != null)
+                        {
+                            
+                        }
                         skip++;
                     }
 
@@ -387,7 +409,7 @@ namespace BatchGanjoorLinkApprover
                     lblStatus.Text = "بررسی ...";
                     Application.DoEvents();
 
-                    
+
                     if (correction.Rhythm != null)
                     {
                         correction.RhythmResult = CorrectionReviewResult.Approved;
@@ -398,7 +420,7 @@ namespace BatchGanjoorLinkApprover
                         correction.RhymeLettersReviewResult = CorrectionReviewResult.Approved;
                     }
 
-                   
+
 
 
                     HttpResponseMessage approveResponse = await httpClient.PostAsync($"https://api.ganjoor.net/api/ganjoor/section/moderate",
@@ -445,7 +467,7 @@ namespace BatchGanjoorLinkApprover
         {
             if (lstTrustedUsers.SelectedItem != null)
             {
-                
+
                 using (HttpClient httpClient = new HttpClient())
                 {
                     httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Properties.Settings.Default.MuseumToken);
@@ -477,7 +499,7 @@ namespace BatchGanjoorLinkApprover
 
         private void btnAddProtected_Click(object sender, EventArgs e)
         {
-            if(!int.TryParse(txtCategoryId.Text, out var _))
+            if (!int.TryParse(txtCategoryId.Text, out var _))
             {
                 return;
             }
@@ -519,7 +541,7 @@ namespace BatchGanjoorLinkApprover
 
                     var result = JObject.Parse(await resCat.Content.ReadAsStringAsync());
 
-                    MessageBox.Show(result["poet"]["name"] + " : "+ result["cat"]["title"].ToString());
+                    MessageBox.Show(result["poet"]["name"] + " : " + result["cat"]["title"].ToString());
 
                 }
             }
@@ -554,7 +576,7 @@ namespace BatchGanjoorLinkApprover
 
                 resCat.EnsureSuccessStatusCode();
 
-               
+
                 MessageBox.Show("همگامسازی شروع شد.");
 
                 lblStatus.Text = "آماده";
@@ -627,7 +649,7 @@ namespace BatchGanjoorLinkApprover
                         continue;
                     }
 
-                    if(correction.BreakFromVerse1VOrder != null)
+                    if (correction.BreakFromVerse1VOrder != null)
                     {
                         skip++;
                         continue;
@@ -647,12 +669,12 @@ namespace BatchGanjoorLinkApprover
                         correction.RhymeLettersReviewResult = CorrectionReviewResult.Approved;
                     }
 
-                    if(correction.Language != null)
+                    if (correction.Language != null)
                     {
                         correction.LanguageReviewResult = CorrectionReviewResult.Approved;
                     }
 
-                    if(correction.PoemFormat != null)
+                    if (correction.PoemFormat != null)
                     {
                         correction.PoemFormatReviewResult = CorrectionReviewResult.Approved;
                     }
@@ -715,76 +737,6 @@ namespace BatchGanjoorLinkApprover
             }
         }
 
-        private async void btnAIImageGenerate_Click(object sender, EventArgs e)
-        {
-            int lastPoetId = int.Parse(txtPoetId.Text);
-            using (HttpClient httpClient = new HttpClient())
-            {
-                for (int poetId = lastPoetId; poetId > 1; poetId--)
-                {
-                    lblStatus.Text = "فراخوانی ...";
 
-                    Cursor = Cursors.WaitCursor;
-                    Application.DoEvents();
-                    HttpResponseMessage responsePoet = await httpClient.GetAsync($"https://api.ganjoor.net/api/ganjoor/poet/{poetId}");
-                    if (responsePoet.StatusCode != HttpStatusCode.OK)
-                    {
-                        Cursor = Cursors.Default;
-                        MessageBox.Show(responsePoet.ToString());
-                        return;
-                    }
-
-                    responsePoet.EnsureSuccessStatusCode();
-
-                    dynamic poet = JsonConvert.DeserializeObject<dynamic>(await responsePoet.Content.ReadAsStringAsync());
-
-                    int catId = (int)poet.cat.id;
-
-                    List<int> poemlist = new List<int>();   
-                    await catPoems(httpClient, catId, poemlist);
-
-                    foreach (int poemId in poemlist)
-                    {
-                        HttpResponseMessage response = await httpClient.GetAsync($"https://api.ganjoor.net/api/ganjoor/poem/{poemId}?catInfo=false&catPoems=false&rhymes=false&recitations=false&images=false&songs=false&comments=false&verseDetails=false&navigation=false&relatedpoems=false");
-                        if (response.StatusCode != HttpStatusCode.OK)
-                        {
-                            Cursor = Cursors.Default;
-                            MessageBox.Show(response.ToString());
-                            return;
-                        }
-                        response.EnsureSuccessStatusCode();
-                        dynamic poem = JsonConvert.DeserializeObject<dynamic>(await response.Content.ReadAsStringAsync());
-
-                        string title = poem.title;
-                        string plainText = poem.plainText;
-
-                        MessageBox.Show(title + Environment.NewLine + plainText);
-                    }
-                }
-            }
-        }
-
-        private async Task catPoems(HttpClient httpClient, int catId, List<int> poemlist)
-        {
-            HttpResponseMessage response = await httpClient.GetAsync($"https://api.ganjoor.net/api/ganjoor/cat/{catId}?poems=true&mainSections=false");
-            if (response.StatusCode != HttpStatusCode.OK)
-            {
-                Cursor = Cursors.Default;
-                MessageBox.Show(response.ToString());
-                return;
-            }
-            response.EnsureSuccessStatusCode();
-            dynamic cat = JsonConvert.DeserializeObject<dynamic>(await response.Content.ReadAsStringAsync());
-
-            foreach (dynamic poem in cat.cat.poems)
-            {
-                poemlist.Add((int)poem.id);
-            }
-
-            foreach (dynamic child in cat.cat.children)
-            {
-                await catPoems(httpClient, (int)child.id, poemlist);
-            }
-        }
     }
 }
