@@ -208,6 +208,7 @@ namespace BatchGanjoorLinkApprover
                 Application.DoEvents();
 
                 int skip = 0;
+                bool approvedMeanings = chkMeanings.Checked;
                 do
                 {
                     lblStatus.Text = $"بعدی ...";
@@ -246,8 +247,11 @@ namespace BatchGanjoorLinkApprover
 
                     if (!trusted)
                     {
-                        skip++;
-                        continue;
+                        if (!approvedMeanings)
+                        {
+                            skip++;
+                            continue;
+                        }
                     }
 
                     HttpResponseMessage resPoem = await httpClient.GetAsync($"https://api.ganjoor.net/api/ganjoor/poem/{correction.PoemId}?catInfo=true&catPoems=false&rhymes=false&recitations=false&images=false&songs=false&comments=false&verseDetails=false&navigation=false&relatedpoems=false");
@@ -262,16 +266,20 @@ namespace BatchGanjoorLinkApprover
 
                     var result = JObject.Parse(await resPoem.Content.ReadAsStringAsync());
 
-                    string catId = result["category"]["cat"]["id"].ToString();
-                    if (Settings.Default.ProtectedCategoryIdSet != null)
-                        foreach (var item in Settings.Default.ProtectedCategoryIdSet)
-                        {
-                            if (item.ToString() == catId)
+                    if(!approvedMeanings)
+                    {
+                        string catId = result["category"]["cat"]["id"].ToString();
+                        if (Settings.Default.ProtectedCategoryIdSet != null)
+                            foreach (var item in Settings.Default.ProtectedCategoryIdSet)
                             {
-                                skip++;
-                                continue;
+                                if (item.ToString() == catId)
+                                {
+                                    skip++;
+                                    continue;
+                                }
                             }
-                        }
+                    }
+                    
 
 
                     if (correction.Rhythm2 != null)
@@ -283,19 +291,24 @@ namespace BatchGanjoorLinkApprover
                     lblStatus.Text = "بررسی ...";
                     Application.DoEvents();
 
+                    bool onlyMeaning = true;
+
                     if (correction.Title != null)
                     {
                         correction.Result = CorrectionReviewResult.Approved;
+                        onlyMeaning = false;
                     }
 
                     if (correction.Rhythm != null)
                     {
                         correction.RhythmResult = CorrectionReviewResult.Approved;
+                        onlyMeaning = false;
                     }
 
                     if (correction.RhymeLetters != null)
                     {
                         correction.RhymeLettersReviewResult = CorrectionReviewResult.Approved;
+                        onlyMeaning = false;
                     }
 
                     if(correction.PoemSummary != null)
@@ -308,6 +321,7 @@ namespace BatchGanjoorLinkApprover
                         if (!string.IsNullOrEmpty(v.Text))
                         {
                             v.Result = CorrectionReviewResult.Approved;
+                            onlyMeaning = false;
                         }
                         if (!string.IsNullOrEmpty(v.CoupletSummary))
                         {
@@ -319,7 +333,11 @@ namespace BatchGanjoorLinkApprover
                         }
                     }
 
-
+                    if(approvedMeanings && !onlyMeaning)
+                    {
+                        skip++;
+                        continue;
+                    }
 
                     HttpResponseMessage approveResponse = await httpClient.PostAsync($"https://api.ganjoor.net/api/ganjoor/correction/moderate",
                         new StringContent(JsonConvert.SerializeObject(correction), Encoding.UTF8, "application/json")

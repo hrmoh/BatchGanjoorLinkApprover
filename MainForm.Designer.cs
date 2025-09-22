@@ -50,6 +50,7 @@ namespace BatchGanjoorLinkApprover
             this.btnNaskban = new System.Windows.Forms.Button();
             this.btnApproveUserMeters = new System.Windows.Forms.Button();
             this.btnNaskbanFix = new System.Windows.Forms.Button();
+            this.chkMeanings = new System.Windows.Forms.CheckBox();
             this.grpLogin.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -57,7 +58,7 @@ namespace BatchGanjoorLinkApprover
             // 
             this.btnLogin.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.btnLogin.Location = new System.Drawing.Point(130, 78);
-            this.btnLogin.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnLogin.Margin = new System.Windows.Forms.Padding(2);
             this.btnLogin.Name = "btnLogin";
             this.btnLogin.Size = new System.Drawing.Size(74, 22);
             this.btnLogin.TabIndex = 9;
@@ -68,7 +69,7 @@ namespace BatchGanjoorLinkApprover
             // txtPassword
             // 
             this.txtPassword.Location = new System.Drawing.Point(14, 50);
-            this.txtPassword.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtPassword.Margin = new System.Windows.Forms.Padding(2);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.PasswordChar = '*';
             this.txtPassword.RightToLeft = System.Windows.Forms.RightToLeft.No;
@@ -88,7 +89,7 @@ namespace BatchGanjoorLinkApprover
             // txtEmail
             // 
             this.txtEmail.Location = new System.Drawing.Point(14, 26);
-            this.txtEmail.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtEmail.Margin = new System.Windows.Forms.Padding(2);
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.txtEmail.Size = new System.Drawing.Size(192, 20);
@@ -112,9 +113,9 @@ namespace BatchGanjoorLinkApprover
             this.grpLogin.Controls.Add(this.txtPassword);
             this.grpLogin.Controls.Add(this.lblPassword);
             this.grpLogin.Location = new System.Drawing.Point(8, 18);
-            this.grpLogin.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.grpLogin.Margin = new System.Windows.Forms.Padding(2);
             this.grpLogin.Name = "grpLogin";
-            this.grpLogin.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.grpLogin.Padding = new System.Windows.Forms.Padding(2);
             this.grpLogin.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.grpLogin.Size = new System.Drawing.Size(334, 126);
             this.grpLogin.TabIndex = 10;
@@ -124,7 +125,7 @@ namespace BatchGanjoorLinkApprover
             // btnApprove
             // 
             this.btnApprove.Location = new System.Drawing.Point(8, 162);
-            this.btnApprove.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnApprove.Margin = new System.Windows.Forms.Padding(2);
             this.btnApprove.Name = "btnApprove";
             this.btnApprove.Size = new System.Drawing.Size(334, 34);
             this.btnApprove.TabIndex = 11;
@@ -145,7 +146,7 @@ namespace BatchGanjoorLinkApprover
             // btnApproveEdits
             // 
             this.btnApproveEdits.Location = new System.Drawing.Point(8, 241);
-            this.btnApproveEdits.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnApproveEdits.Margin = new System.Windows.Forms.Padding(2);
             this.btnApproveEdits.Name = "btnApproveEdits";
             this.btnApproveEdits.Size = new System.Drawing.Size(334, 34);
             this.btnApproveEdits.TabIndex = 13;
@@ -156,7 +157,7 @@ namespace BatchGanjoorLinkApprover
             // btnApproveMetres
             // 
             this.btnApproveMetres.Location = new System.Drawing.Point(8, 312);
-            this.btnApproveMetres.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnApproveMetres.Margin = new System.Windows.Forms.Padding(2);
             this.btnApproveMetres.Name = "btnApproveMetres";
             this.btnApproveMetres.Size = new System.Drawing.Size(334, 34);
             this.btnApproveMetres.TabIndex = 14;
@@ -208,7 +209,7 @@ namespace BatchGanjoorLinkApprover
             this.lstProtectedCatgories.Location = new System.Drawing.Point(10, 390);
             this.lstProtectedCatgories.Name = "lstProtectedCatgories";
             this.lstProtectedCatgories.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.lstProtectedCatgories.Size = new System.Drawing.Size(626, 108);
+            this.lstProtectedCatgories.Size = new System.Drawing.Size(626, 69);
             this.lstProtectedCatgories.TabIndex = 19;
             this.lstProtectedCatgories.DoubleClick += new System.EventHandler(this.lstProtectedCatgories_DoubleClick);
             // 
@@ -243,7 +244,7 @@ namespace BatchGanjoorLinkApprover
             // btnNaskban
             // 
             this.btnNaskban.Location = new System.Drawing.Point(8, 522);
-            this.btnNaskban.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnNaskban.Margin = new System.Windows.Forms.Padding(2);
             this.btnNaskban.Name = "btnNaskban";
             this.btnNaskban.Size = new System.Drawing.Size(624, 34);
             this.btnNaskban.TabIndex = 23;
@@ -254,7 +255,7 @@ namespace BatchGanjoorLinkApprover
             // btnApproveUserMeters
             // 
             this.btnApproveUserMeters.Location = new System.Drawing.Point(8, 276);
-            this.btnApproveUserMeters.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnApproveUserMeters.Margin = new System.Windows.Forms.Padding(2);
             this.btnApproveUserMeters.Name = "btnApproveUserMeters";
             this.btnApproveUserMeters.Size = new System.Drawing.Size(334, 34);
             this.btnApproveUserMeters.TabIndex = 24;
@@ -265,7 +266,7 @@ namespace BatchGanjoorLinkApprover
             // btnNaskbanFix
             // 
             this.btnNaskbanFix.Location = new System.Drawing.Point(9, 566);
-            this.btnNaskbanFix.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnNaskbanFix.Margin = new System.Windows.Forms.Padding(2);
             this.btnNaskbanFix.Name = "btnNaskbanFix";
             this.btnNaskbanFix.Size = new System.Drawing.Size(624, 34);
             this.btnNaskbanFix.TabIndex = 25;
@@ -273,11 +274,22 @@ namespace BatchGanjoorLinkApprover
             this.btnNaskbanFix.UseVisualStyleBackColor = true;
             this.btnNaskbanFix.Click += new System.EventHandler(this.btnNaskbanFix_Click);
             // 
+            // chkMeanings
+            // 
+            this.chkMeanings.AutoSize = true;
+            this.chkMeanings.Location = new System.Drawing.Point(10, 500);
+            this.chkMeanings.Name = "chkMeanings";
+            this.chkMeanings.Size = new System.Drawing.Size(167, 17);
+            this.chkMeanings.TabIndex = 26;
+            this.chkMeanings.Text = "تأیید همهٔ ویرایش‌های معنی‌ها";
+            this.chkMeanings.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(647, 609);
+            this.Controls.Add(this.chkMeanings);
             this.Controls.Add(this.btnNaskbanFix);
             this.Controls.Add(this.btnApproveUserMeters);
             this.Controls.Add(this.btnNaskban);
@@ -295,7 +307,7 @@ namespace BatchGanjoorLinkApprover
             this.Controls.Add(this.btnApprove);
             this.Controls.Add(this.grpLogin);
             this.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "MainForm";
             this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.RightToLeftLayout = true;
@@ -330,6 +342,7 @@ namespace BatchGanjoorLinkApprover
         private System.Windows.Forms.Button btnNaskban;
         private System.Windows.Forms.Button btnApproveUserMeters;
         private System.Windows.Forms.Button btnNaskbanFix;
+        private System.Windows.Forms.CheckBox chkMeanings;
     }
 }
 
