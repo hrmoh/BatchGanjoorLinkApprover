@@ -42,6 +42,14 @@ namespace BatchGanjoorLinkApprover
                 }
             }
 
+            if(Settings.Default.UntrustedUserIdSet != null)
+            {
+                foreach (var item in Settings.Default.UntrustedUserIdSet)
+                {
+                    lstUnsafeUsers.Items.Add(item);
+                }
+            }
+
         }
 
         private async void btnLogin_Click(object sender, EventArgs e)
@@ -755,6 +763,17 @@ namespace BatchGanjoorLinkApprover
             }
         }
 
+        private void btnAddUnsafeUser_Click(object sender, EventArgs e)
+        {
 
+            if (Settings.Default.UntrustedUserIdSet == null)
+            {
+                Settings.Default.UntrustedUserIdSet = new System.Collections.Specialized.StringCollection();
+            }
+            Settings.Default.UntrustedUserIdSet.Add(txtUnsafeUserId.Text);
+            Settings.Default.Save();
+
+            lstUnsafeUsers.Items.Add(txtUnsafeUserId.Text);
+        }
     }
 }

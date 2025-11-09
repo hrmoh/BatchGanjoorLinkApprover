@@ -51,7 +51,7 @@ namespace BatchGanjoorLinkApprover
             this.btnApproveUserMeters = new System.Windows.Forms.Button();
             this.btnNaskbanFix = new System.Windows.Forms.Button();
             this.chkMeanings = new System.Windows.Forms.CheckBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtUnsafeUserId = new System.Windows.Forms.TextBox();
             this.btnAddUnsafeUser = new System.Windows.Forms.Button();
             this.lblUnsafeUsers = new System.Windows.Forms.Label();
             this.lstUnsafeUsers = new System.Windows.Forms.ListBox();
@@ -289,14 +289,13 @@ namespace BatchGanjoorLinkApprover
             this.chkMeanings.Text = "تأیید همهٔ ویرایش‌های معنی‌ها";
             this.chkMeanings.UseVisualStyleBackColor = true;
             // 
-            // textBox1
+            // txtUnsafeUserId
             // 
-            this.textBox1.Location = new System.Drawing.Point(400, 465);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.textBox1.Size = new System.Drawing.Size(235, 20);
-            this.textBox1.TabIndex = 30;
-            this.textBox1.Text = "txtUnsafeUserId";
+            this.txtUnsafeUserId.Location = new System.Drawing.Point(400, 465);
+            this.txtUnsafeUserId.Name = "txtUnsafeUserId";
+            this.txtUnsafeUserId.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.txtUnsafeUserId.Size = new System.Drawing.Size(235, 20);
+            this.txtUnsafeUserId.TabIndex = 30;
             // 
             // btnAddUnsafeUser
             // 
@@ -306,6 +305,7 @@ namespace BatchGanjoorLinkApprover
             this.btnAddUnsafeUser.TabIndex = 29;
             this.btnAddUnsafeUser.Text = "+";
             this.btnAddUnsafeUser.UseVisualStyleBackColor = true;
+            this.btnAddUnsafeUser.Click += new System.EventHandler(this.btnAddUnsafeUser_Click);
             // 
             // lblUnsafeUsers
             // 
@@ -341,7 +341,7 @@ namespace BatchGanjoorLinkApprover
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(647, 684);
             this.Controls.Add(this.btnDelUnsafeUser);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.txtUnsafeUserId);
             this.Controls.Add(this.btnAddUnsafeUser);
             this.Controls.Add(this.lblUnsafeUsers);
             this.Controls.Add(this.lstUnsafeUsers);
@@ -399,7 +399,7 @@ namespace BatchGanjoorLinkApprover
         private System.Windows.Forms.Button btnApproveUserMeters;
         private System.Windows.Forms.Button btnNaskbanFix;
         private System.Windows.Forms.CheckBox chkMeanings;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtUnsafeUserId;
         private System.Windows.Forms.Button btnAddUnsafeUser;
         private System.Windows.Forms.Label lblUnsafeUsers;
         private System.Windows.Forms.ListBox lstUnsafeUsers;
