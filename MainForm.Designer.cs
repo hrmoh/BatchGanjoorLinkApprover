@@ -325,6 +325,7 @@ namespace BatchGanjoorLinkApprover
             this.lstUnsafeUsers.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.lstUnsafeUsers.Size = new System.Drawing.Size(626, 69);
             this.lstUnsafeUsers.TabIndex = 27;
+            this.lstUnsafeUsers.DoubleClick += new System.EventHandler(this.lstUnsafeUsers_DoubleClick);
             // 
             // btnDelUnsafeUser
             // 

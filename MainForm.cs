@@ -815,5 +815,39 @@ namespace BatchGanjoorLinkApprover
 
             lstUnsafeUsers.Items.Remove(lstUnsafeUsers.SelectedItem.ToString());
         }
+
+        private async void lstUnsafeUsers_DoubleClick(object sender, EventArgs e)
+        {
+            if (lstUnsafeUsers.SelectedItem != null)
+            {
+
+                using (HttpClient httpClient = new HttpClient())
+                {
+                    httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Properties.Settings.Default.MuseumToken);
+
+                    lblStatus.Text = "دریافت اطلاعات کاربر ...";
+
+                    Cursor = Cursors.WaitCursor;
+                    Application.DoEvents();
+
+
+
+                    HttpResponseMessage response = await httpClient.GetAsync($"https://api.ganjoor.net/api/users/{lstUnsafeUsers.SelectedItem}");
+                    if (response.StatusCode != HttpStatusCode.OK)
+                    {
+                        Cursor = Cursors.Default;
+                        MessageBox.Show(response.ToString());
+                        return;
+                    }
+
+                    response.EnsureSuccessStatusCode();
+
+                    var result = JObject.Parse(await response.Content.ReadAsStringAsync());
+
+                    MessageBox.Show(result["nickName"].ToString());
+
+                }
+            }
+        }
     }
 }
