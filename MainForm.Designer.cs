@@ -51,6 +51,11 @@ namespace BatchGanjoorLinkApprover
             this.btnApproveUserMeters = new System.Windows.Forms.Button();
             this.btnNaskbanFix = new System.Windows.Forms.Button();
             this.chkMeanings = new System.Windows.Forms.CheckBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.btnAddUnsafeUser = new System.Windows.Forms.Button();
+            this.lblUnsafeUsers = new System.Windows.Forms.Label();
+            this.lstUnsafeUsers = new System.Windows.Forms.ListBox();
+            this.btnDelUnsafeUser = new System.Windows.Forms.Button();
             this.grpLogin.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -243,7 +248,7 @@ namespace BatchGanjoorLinkApprover
             // 
             // btnNaskban
             // 
-            this.btnNaskban.Location = new System.Drawing.Point(8, 522);
+            this.btnNaskban.Location = new System.Drawing.Point(6, 588);
             this.btnNaskban.Margin = new System.Windows.Forms.Padding(2);
             this.btnNaskban.Name = "btnNaskban";
             this.btnNaskban.Size = new System.Drawing.Size(624, 34);
@@ -265,7 +270,7 @@ namespace BatchGanjoorLinkApprover
             // 
             // btnNaskbanFix
             // 
-            this.btnNaskbanFix.Location = new System.Drawing.Point(9, 566);
+            this.btnNaskbanFix.Location = new System.Drawing.Point(7, 632);
             this.btnNaskbanFix.Margin = new System.Windows.Forms.Padding(2);
             this.btnNaskbanFix.Name = "btnNaskbanFix";
             this.btnNaskbanFix.Size = new System.Drawing.Size(624, 34);
@@ -277,18 +282,69 @@ namespace BatchGanjoorLinkApprover
             // chkMeanings
             // 
             this.chkMeanings.AutoSize = true;
-            this.chkMeanings.Location = new System.Drawing.Point(10, 500);
+            this.chkMeanings.Location = new System.Drawing.Point(8, 566);
             this.chkMeanings.Name = "chkMeanings";
             this.chkMeanings.Size = new System.Drawing.Size(167, 17);
             this.chkMeanings.TabIndex = 26;
             this.chkMeanings.Text = "تأیید همهٔ ویرایش‌های معنی‌ها";
             this.chkMeanings.UseVisualStyleBackColor = true;
             // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(400, 465);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.textBox1.Size = new System.Drawing.Size(235, 20);
+            this.textBox1.TabIndex = 30;
+            this.textBox1.Text = "txtUnsafeUserId";
+            // 
+            // btnAddUnsafeUser
+            // 
+            this.btnAddUnsafeUser.Location = new System.Drawing.Point(372, 463);
+            this.btnAddUnsafeUser.Name = "btnAddUnsafeUser";
+            this.btnAddUnsafeUser.Size = new System.Drawing.Size(24, 23);
+            this.btnAddUnsafeUser.TabIndex = 29;
+            this.btnAddUnsafeUser.Text = "+";
+            this.btnAddUnsafeUser.UseVisualStyleBackColor = true;
+            // 
+            // lblUnsafeUsers
+            // 
+            this.lblUnsafeUsers.AutoSize = true;
+            this.lblUnsafeUsers.Location = new System.Drawing.Point(13, 469);
+            this.lblUnsafeUsers.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblUnsafeUsers.Name = "lblUnsafeUsers";
+            this.lblUnsafeUsers.Size = new System.Drawing.Size(107, 13);
+            this.lblUnsafeUsers.TabIndex = 28;
+            this.lblUnsafeUsers.Text = "کاربران غیرقابل اعتماد";
+            // 
+            // lstUnsafeUsers
+            // 
+            this.lstUnsafeUsers.FormattingEnabled = true;
+            this.lstUnsafeUsers.Location = new System.Drawing.Point(9, 491);
+            this.lstUnsafeUsers.Name = "lstUnsafeUsers";
+            this.lstUnsafeUsers.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.lstUnsafeUsers.Size = new System.Drawing.Size(626, 69);
+            this.lstUnsafeUsers.TabIndex = 27;
+            // 
+            // btnDelUnsafeUser
+            // 
+            this.btnDelUnsafeUser.Location = new System.Drawing.Point(347, 463);
+            this.btnDelUnsafeUser.Name = "btnDelUnsafeUser";
+            this.btnDelUnsafeUser.Size = new System.Drawing.Size(24, 23);
+            this.btnDelUnsafeUser.TabIndex = 31;
+            this.btnDelUnsafeUser.Text = "-";
+            this.btnDelUnsafeUser.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(647, 609);
+            this.ClientSize = new System.Drawing.Size(647, 684);
+            this.Controls.Add(this.btnDelUnsafeUser);
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.btnAddUnsafeUser);
+            this.Controls.Add(this.lblUnsafeUsers);
+            this.Controls.Add(this.lstUnsafeUsers);
             this.Controls.Add(this.chkMeanings);
             this.Controls.Add(this.btnNaskbanFix);
             this.Controls.Add(this.btnApproveUserMeters);
@@ -343,6 +399,11 @@ namespace BatchGanjoorLinkApprover
         private System.Windows.Forms.Button btnApproveUserMeters;
         private System.Windows.Forms.Button btnNaskbanFix;
         private System.Windows.Forms.CheckBox chkMeanings;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Button btnAddUnsafeUser;
+        private System.Windows.Forms.Label lblUnsafeUsers;
+        private System.Windows.Forms.ListBox lstUnsafeUsers;
+        private System.Windows.Forms.Button btnDelUnsafeUser;
     }
 }
 
