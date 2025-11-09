@@ -253,13 +253,37 @@ namespace BatchGanjoorLinkApprover
                         }
                     }
 
+                    
+
+                    
+
+                    if(approvedMeanings)
+                    {
+                        trusted = true;
+                        foreach (var item in Settings.Default.UntrustedUserIdSet)
+                        {
+                            if (correction.UserId == Guid.Parse(item))
+                            {
+                                trusted = false; break;
+                            }
+                        }
+                    }
+
+                    if(trusted)
+                    {
+                        foreach (var item in Settings.Default.UntrustedUserIdSet)
+                        {
+                            if (correction.UserId == Guid.Parse(item))
+                            {
+                                trusted = false; break;
+                            }
+                        }
+                    }
+
                     if (!trusted)
                     {
-                        if (!approvedMeanings)
-                        {
-                            skip++;
-                            continue;
-                        }
+                        skip++;
+                        continue;
                     }
 
                     HttpResponseMessage resPoem = await httpClient.GetAsync($"https://api.ganjoor.net/api/ganjoor/poem/{correction.PoemId}?catInfo=true&catPoems=false&rhymes=false&recitations=false&images=false&songs=false&comments=false&verseDetails=false&navigation=false&relatedpoems=false");
@@ -663,6 +687,14 @@ namespace BatchGanjoorLinkApprover
                         }
                     }
 
+                    foreach (var item in Settings.Default.UntrustedUserIdSet)
+                    {
+                        if (correction.UserId == Guid.Parse(item))
+                        {
+                            trusted = false; break;
+                        }
+                    }
+
                     if (!trusted)
                     {
                         skip++;
@@ -774,6 +806,14 @@ namespace BatchGanjoorLinkApprover
             Settings.Default.Save();
 
             lstUnsafeUsers.Items.Add(txtUnsafeUserId.Text);
+        }
+
+        private void btnDelUnsafeUser_Click(object sender, EventArgs e)
+        {
+            Settings.Default.UntrustedUserIdSet.Remove(lstUnsafeUsers.SelectedItem.ToString());
+            Settings.Default.Save();
+
+            lstUnsafeUsers.Items.Remove(lstUnsafeUsers.SelectedItem.ToString());
         }
     }
 }

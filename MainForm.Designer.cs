@@ -334,6 +334,7 @@ namespace BatchGanjoorLinkApprover
             this.btnDelUnsafeUser.TabIndex = 31;
             this.btnDelUnsafeUser.Text = "-";
             this.btnDelUnsafeUser.UseVisualStyleBackColor = true;
+            this.btnDelUnsafeUser.Click += new System.EventHandler(this.btnDelUnsafeUser_Click);
             // 
             // MainForm
             // 
