@@ -71,7 +71,9 @@
     <Compile Include="ImportedViewModels\GanjoorPoemSectionCorrectionViewModel.cs" />
     <Compile Include="ImportedViewModels\GanjoorVerseVOrderText.cs" />
     <Compile Include="ImportedViewModels\PublicRAppUser.cs" />
+    <Compile Include="ImportedViewModels\PublicRecitationViewModel.cs" />
     <Compile Include="ImportedViewModels\RAppUserStatus.cs" />
+    <Compile Include="ImportedViewModels\RecitationErrorReportViewModel.cs" />
     <Compile Include="ImportedViewModels\ReviewResult.cs" />
     <Compile Include="ImportedViewModels\VersePosition.cs" />
     <Compile Include="LoginViewModel.cs" />
@@ -81,10 +83,19 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="MissingMp3Files.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MissingMp3Files.Designer.cs">
+      <DependentUpon>MissingMp3Files.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MissingMp3Files.resx">
+      <DependentUpon>MissingMp3Files.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

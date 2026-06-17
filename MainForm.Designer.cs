@@ -56,16 +56,17 @@ namespace BatchGanjoorLinkApprover
             this.lblUnsafeUsers = new System.Windows.Forms.Label();
             this.lstUnsafeUsers = new System.Windows.Forms.ListBox();
             this.btnDelUnsafeUser = new System.Windows.Forms.Button();
+            this.btnMissingMp3Files = new System.Windows.Forms.Button();
             this.grpLogin.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnLogin
             // 
             this.btnLogin.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnLogin.Location = new System.Drawing.Point(130, 78);
-            this.btnLogin.Margin = new System.Windows.Forms.Padding(2);
+            this.btnLogin.Location = new System.Drawing.Point(260, 156);
+            this.btnLogin.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnLogin.Name = "btnLogin";
-            this.btnLogin.Size = new System.Drawing.Size(74, 22);
+            this.btnLogin.Size = new System.Drawing.Size(148, 44);
             this.btnLogin.TabIndex = 9;
             this.btnLogin.Text = "ورود";
             this.btnLogin.UseVisualStyleBackColor = true;
@@ -73,40 +74,40 @@ namespace BatchGanjoorLinkApprover
             // 
             // txtPassword
             // 
-            this.txtPassword.Location = new System.Drawing.Point(14, 50);
-            this.txtPassword.Margin = new System.Windows.Forms.Padding(2);
+            this.txtPassword.Location = new System.Drawing.Point(28, 100);
+            this.txtPassword.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.PasswordChar = '*';
             this.txtPassword.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.txtPassword.Size = new System.Drawing.Size(192, 20);
+            this.txtPassword.Size = new System.Drawing.Size(380, 33);
             this.txtPassword.TabIndex = 8;
             // 
             // lblPassword
             // 
             this.lblPassword.AutoSize = true;
-            this.lblPassword.Location = new System.Drawing.Point(250, 52);
-            this.lblPassword.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblPassword.Location = new System.Drawing.Point(500, 104);
+            this.lblPassword.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblPassword.Name = "lblPassword";
-            this.lblPassword.Size = new System.Drawing.Size(43, 13);
+            this.lblPassword.Size = new System.Drawing.Size(83, 27);
             this.lblPassword.TabIndex = 7;
             this.lblPassword.Text = "گذرواژه:";
             // 
             // txtEmail
             // 
-            this.txtEmail.Location = new System.Drawing.Point(14, 26);
-            this.txtEmail.Margin = new System.Windows.Forms.Padding(2);
+            this.txtEmail.Location = new System.Drawing.Point(28, 52);
+            this.txtEmail.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.txtEmail.Size = new System.Drawing.Size(192, 20);
+            this.txtEmail.Size = new System.Drawing.Size(380, 33);
             this.txtEmail.TabIndex = 6;
             // 
             // lblEmail
             // 
             this.lblEmail.AutoSize = true;
-            this.lblEmail.Location = new System.Drawing.Point(210, 26);
-            this.lblEmail.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblEmail.Location = new System.Drawing.Point(420, 52);
+            this.lblEmail.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblEmail.Name = "lblEmail";
-            this.lblEmail.Size = new System.Drawing.Size(89, 13);
+            this.lblEmail.Size = new System.Drawing.Size(174, 27);
             this.lblEmail.TabIndex = 5;
             this.lblEmail.Text = "پست الکترونیکی:";
             // 
@@ -117,22 +118,22 @@ namespace BatchGanjoorLinkApprover
             this.grpLogin.Controls.Add(this.txtEmail);
             this.grpLogin.Controls.Add(this.txtPassword);
             this.grpLogin.Controls.Add(this.lblPassword);
-            this.grpLogin.Location = new System.Drawing.Point(8, 18);
-            this.grpLogin.Margin = new System.Windows.Forms.Padding(2);
+            this.grpLogin.Location = new System.Drawing.Point(16, 36);
+            this.grpLogin.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.grpLogin.Name = "grpLogin";
-            this.grpLogin.Padding = new System.Windows.Forms.Padding(2);
+            this.grpLogin.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.grpLogin.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.grpLogin.Size = new System.Drawing.Size(334, 126);
+            this.grpLogin.Size = new System.Drawing.Size(668, 252);
             this.grpLogin.TabIndex = 10;
             this.grpLogin.TabStop = false;
             this.grpLogin.Text = "ورود";
             // 
             // btnApprove
             // 
-            this.btnApprove.Location = new System.Drawing.Point(8, 162);
-            this.btnApprove.Margin = new System.Windows.Forms.Padding(2);
+            this.btnApprove.Location = new System.Drawing.Point(16, 324);
+            this.btnApprove.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnApprove.Name = "btnApprove";
-            this.btnApprove.Size = new System.Drawing.Size(334, 34);
+            this.btnApprove.Size = new System.Drawing.Size(668, 68);
             this.btnApprove.TabIndex = 11;
             this.btnApprove.Text = "تأیید دسته‌ای پیشنهادهای من برای ارتباطات گنجینه گنجور";
             this.btnApprove.UseVisualStyleBackColor = true;
@@ -141,19 +142,19 @@ namespace BatchGanjoorLinkApprover
             // lblStatus
             // 
             this.lblStatus.AutoSize = true;
-            this.lblStatus.Location = new System.Drawing.Point(8, 210);
-            this.lblStatus.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblStatus.Location = new System.Drawing.Point(16, 420);
+            this.lblStatus.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new System.Drawing.Size(13, 13);
+            this.lblStatus.Size = new System.Drawing.Size(24, 27);
             this.lblStatus.TabIndex = 12;
             this.lblStatus.Text = "0";
             // 
             // btnApproveEdits
             // 
-            this.btnApproveEdits.Location = new System.Drawing.Point(8, 241);
-            this.btnApproveEdits.Margin = new System.Windows.Forms.Padding(2);
+            this.btnApproveEdits.Location = new System.Drawing.Point(16, 482);
+            this.btnApproveEdits.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnApproveEdits.Name = "btnApproveEdits";
-            this.btnApproveEdits.Size = new System.Drawing.Size(334, 34);
+            this.btnApproveEdits.Size = new System.Drawing.Size(668, 68);
             this.btnApproveEdits.TabIndex = 13;
             this.btnApproveEdits.Text = "تأیید دسته‌ای ویرایش‌های کژدم و سایر کاربران مورد اعتماد";
             this.btnApproveEdits.UseVisualStyleBackColor = true;
@@ -161,10 +162,10 @@ namespace BatchGanjoorLinkApprover
             // 
             // btnApproveMetres
             // 
-            this.btnApproveMetres.Location = new System.Drawing.Point(8, 312);
-            this.btnApproveMetres.Margin = new System.Windows.Forms.Padding(2);
+            this.btnApproveMetres.Location = new System.Drawing.Point(16, 624);
+            this.btnApproveMetres.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnApproveMetres.Name = "btnApproveMetres";
-            this.btnApproveMetres.Size = new System.Drawing.Size(334, 34);
+            this.btnApproveMetres.Size = new System.Drawing.Size(668, 68);
             this.btnApproveMetres.TabIndex = 14;
             this.btnApproveMetres.Text = "تأیید دسته‌ای وزنیابی‌های سیستمی";
             this.btnApproveMetres.UseVisualStyleBackColor = true;
@@ -173,26 +174,30 @@ namespace BatchGanjoorLinkApprover
             // lstTrustedUsers
             // 
             this.lstTrustedUsers.FormattingEnabled = true;
-            this.lstTrustedUsers.Location = new System.Drawing.Point(347, 57);
+            this.lstTrustedUsers.ItemHeight = 25;
+            this.lstTrustedUsers.Location = new System.Drawing.Point(694, 114);
+            this.lstTrustedUsers.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.lstTrustedUsers.Name = "lstTrustedUsers";
             this.lstTrustedUsers.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.lstTrustedUsers.Size = new System.Drawing.Size(290, 290);
+            this.lstTrustedUsers.Size = new System.Drawing.Size(576, 554);
             this.lstTrustedUsers.TabIndex = 15;
             this.lstTrustedUsers.DoubleClick += new System.EventHandler(this.lstTrustedUsers_DoubleClickAsync);
             // 
             // txtUserId
             // 
-            this.txtUserId.Location = new System.Drawing.Point(402, 31);
+            this.txtUserId.Location = new System.Drawing.Point(804, 62);
+            this.txtUserId.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.txtUserId.Name = "txtUserId";
             this.txtUserId.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.txtUserId.Size = new System.Drawing.Size(235, 20);
+            this.txtUserId.Size = new System.Drawing.Size(466, 33);
             this.txtUserId.TabIndex = 16;
             // 
             // btnAddTrusted
             // 
-            this.btnAddTrusted.Location = new System.Drawing.Point(372, 29);
+            this.btnAddTrusted.Location = new System.Drawing.Point(744, 58);
+            this.btnAddTrusted.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.btnAddTrusted.Name = "btnAddTrusted";
-            this.btnAddTrusted.Size = new System.Drawing.Size(24, 23);
+            this.btnAddTrusted.Size = new System.Drawing.Size(48, 46);
             this.btnAddTrusted.TabIndex = 17;
             this.btnAddTrusted.Text = "+";
             this.btnAddTrusted.UseVisualStyleBackColor = true;
@@ -200,9 +205,10 @@ namespace BatchGanjoorLinkApprover
             // 
             // btnDelTrusted
             // 
-            this.btnDelTrusted.Location = new System.Drawing.Point(347, 29);
+            this.btnDelTrusted.Location = new System.Drawing.Point(694, 58);
+            this.btnDelTrusted.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.btnDelTrusted.Name = "btnDelTrusted";
-            this.btnDelTrusted.Size = new System.Drawing.Size(24, 23);
+            this.btnDelTrusted.Size = new System.Drawing.Size(48, 46);
             this.btnDelTrusted.TabIndex = 18;
             this.btnDelTrusted.Text = "-";
             this.btnDelTrusted.UseVisualStyleBackColor = true;
@@ -211,28 +217,31 @@ namespace BatchGanjoorLinkApprover
             // lstProtectedCatgories
             // 
             this.lstProtectedCatgories.FormattingEnabled = true;
-            this.lstProtectedCatgories.Location = new System.Drawing.Point(10, 390);
+            this.lstProtectedCatgories.ItemHeight = 25;
+            this.lstProtectedCatgories.Location = new System.Drawing.Point(20, 780);
+            this.lstProtectedCatgories.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.lstProtectedCatgories.Name = "lstProtectedCatgories";
             this.lstProtectedCatgories.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.lstProtectedCatgories.Size = new System.Drawing.Size(626, 69);
+            this.lstProtectedCatgories.Size = new System.Drawing.Size(1248, 129);
             this.lstProtectedCatgories.TabIndex = 19;
             this.lstProtectedCatgories.DoubleClick += new System.EventHandler(this.lstProtectedCatgories_DoubleClick);
             // 
             // lblProtectedCategories
             // 
             this.lblProtectedCategories.AutoSize = true;
-            this.lblProtectedCategories.Location = new System.Drawing.Point(14, 368);
-            this.lblProtectedCategories.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblProtectedCategories.Location = new System.Drawing.Point(28, 736);
+            this.lblProtectedCategories.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblProtectedCategories.Name = "lblProtectedCategories";
-            this.lblProtectedCategories.Size = new System.Drawing.Size(119, 13);
+            this.lblProtectedCategories.Size = new System.Drawing.Size(238, 27);
             this.lblProtectedCategories.TabIndex = 20;
             this.lblProtectedCategories.Text = "بخش‌های محافظت شده";
             // 
             // btnAddProtected
             // 
-            this.btnAddProtected.Location = new System.Drawing.Point(611, 363);
+            this.btnAddProtected.Location = new System.Drawing.Point(1222, 726);
+            this.btnAddProtected.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.btnAddProtected.Name = "btnAddProtected";
-            this.btnAddProtected.Size = new System.Drawing.Size(24, 23);
+            this.btnAddProtected.Size = new System.Drawing.Size(48, 46);
             this.btnAddProtected.TabIndex = 21;
             this.btnAddProtected.Text = "+";
             this.btnAddProtected.UseVisualStyleBackColor = true;
@@ -240,18 +249,19 @@ namespace BatchGanjoorLinkApprover
             // 
             // txtCategoryId
             // 
-            this.txtCategoryId.Location = new System.Drawing.Point(372, 366);
+            this.txtCategoryId.Location = new System.Drawing.Point(744, 732);
+            this.txtCategoryId.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.txtCategoryId.Name = "txtCategoryId";
             this.txtCategoryId.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.txtCategoryId.Size = new System.Drawing.Size(235, 20);
+            this.txtCategoryId.Size = new System.Drawing.Size(466, 33);
             this.txtCategoryId.TabIndex = 22;
             // 
             // btnNaskban
             // 
-            this.btnNaskban.Location = new System.Drawing.Point(6, 588);
-            this.btnNaskban.Margin = new System.Windows.Forms.Padding(2);
+            this.btnNaskban.Location = new System.Drawing.Point(12, 1176);
+            this.btnNaskban.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnNaskban.Name = "btnNaskban";
-            this.btnNaskban.Size = new System.Drawing.Size(624, 34);
+            this.btnNaskban.Size = new System.Drawing.Size(1248, 68);
             this.btnNaskban.TabIndex = 23;
             this.btnNaskban.Text = "درج ارتباطات تأیید شدهٔ نسک‌بان";
             this.btnNaskban.UseVisualStyleBackColor = true;
@@ -259,10 +269,10 @@ namespace BatchGanjoorLinkApprover
             // 
             // btnApproveUserMeters
             // 
-            this.btnApproveUserMeters.Location = new System.Drawing.Point(8, 276);
-            this.btnApproveUserMeters.Margin = new System.Windows.Forms.Padding(2);
+            this.btnApproveUserMeters.Location = new System.Drawing.Point(16, 552);
+            this.btnApproveUserMeters.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnApproveUserMeters.Name = "btnApproveUserMeters";
-            this.btnApproveUserMeters.Size = new System.Drawing.Size(334, 34);
+            this.btnApproveUserMeters.Size = new System.Drawing.Size(668, 68);
             this.btnApproveUserMeters.TabIndex = 24;
             this.btnApproveUserMeters.Text = "تأیید دسته‌ای وزنیابی‌های کاربران مورد اعتماد از طریق ویرایشگر قطعات";
             this.btnApproveUserMeters.UseVisualStyleBackColor = true;
@@ -270,10 +280,10 @@ namespace BatchGanjoorLinkApprover
             // 
             // btnNaskbanFix
             // 
-            this.btnNaskbanFix.Location = new System.Drawing.Point(7, 632);
-            this.btnNaskbanFix.Margin = new System.Windows.Forms.Padding(2);
+            this.btnNaskbanFix.Location = new System.Drawing.Point(14, 1264);
+            this.btnNaskbanFix.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnNaskbanFix.Name = "btnNaskbanFix";
-            this.btnNaskbanFix.Size = new System.Drawing.Size(624, 34);
+            this.btnNaskbanFix.Size = new System.Drawing.Size(1248, 68);
             this.btnNaskbanFix.TabIndex = 25;
             this.btnNaskbanFix.Text = "تصحیح ارتباطات نسکبان";
             this.btnNaskbanFix.UseVisualStyleBackColor = true;
@@ -282,26 +292,29 @@ namespace BatchGanjoorLinkApprover
             // chkMeanings
             // 
             this.chkMeanings.AutoSize = true;
-            this.chkMeanings.Location = new System.Drawing.Point(8, 566);
+            this.chkMeanings.Location = new System.Drawing.Point(16, 1132);
+            this.chkMeanings.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.chkMeanings.Name = "chkMeanings";
-            this.chkMeanings.Size = new System.Drawing.Size(167, 17);
+            this.chkMeanings.Size = new System.Drawing.Size(323, 31);
             this.chkMeanings.TabIndex = 26;
             this.chkMeanings.Text = "تأیید همهٔ ویرایش‌های معنی‌ها";
             this.chkMeanings.UseVisualStyleBackColor = true;
             // 
             // txtUnsafeUserId
             // 
-            this.txtUnsafeUserId.Location = new System.Drawing.Point(400, 465);
+            this.txtUnsafeUserId.Location = new System.Drawing.Point(800, 930);
+            this.txtUnsafeUserId.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.txtUnsafeUserId.Name = "txtUnsafeUserId";
             this.txtUnsafeUserId.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.txtUnsafeUserId.Size = new System.Drawing.Size(235, 20);
+            this.txtUnsafeUserId.Size = new System.Drawing.Size(466, 33);
             this.txtUnsafeUserId.TabIndex = 30;
             // 
             // btnAddUnsafeUser
             // 
-            this.btnAddUnsafeUser.Location = new System.Drawing.Point(372, 463);
+            this.btnAddUnsafeUser.Location = new System.Drawing.Point(744, 926);
+            this.btnAddUnsafeUser.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.btnAddUnsafeUser.Name = "btnAddUnsafeUser";
-            this.btnAddUnsafeUser.Size = new System.Drawing.Size(24, 23);
+            this.btnAddUnsafeUser.Size = new System.Drawing.Size(48, 46);
             this.btnAddUnsafeUser.TabIndex = 29;
             this.btnAddUnsafeUser.Text = "+";
             this.btnAddUnsafeUser.UseVisualStyleBackColor = true;
@@ -310,38 +323,52 @@ namespace BatchGanjoorLinkApprover
             // lblUnsafeUsers
             // 
             this.lblUnsafeUsers.AutoSize = true;
-            this.lblUnsafeUsers.Location = new System.Drawing.Point(13, 469);
-            this.lblUnsafeUsers.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblUnsafeUsers.Location = new System.Drawing.Point(26, 938);
+            this.lblUnsafeUsers.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblUnsafeUsers.Name = "lblUnsafeUsers";
-            this.lblUnsafeUsers.Size = new System.Drawing.Size(107, 13);
+            this.lblUnsafeUsers.Size = new System.Drawing.Size(211, 27);
             this.lblUnsafeUsers.TabIndex = 28;
             this.lblUnsafeUsers.Text = "کاربران غیرقابل اعتماد";
             // 
             // lstUnsafeUsers
             // 
             this.lstUnsafeUsers.FormattingEnabled = true;
-            this.lstUnsafeUsers.Location = new System.Drawing.Point(9, 491);
+            this.lstUnsafeUsers.ItemHeight = 25;
+            this.lstUnsafeUsers.Location = new System.Drawing.Point(18, 982);
+            this.lstUnsafeUsers.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.lstUnsafeUsers.Name = "lstUnsafeUsers";
             this.lstUnsafeUsers.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.lstUnsafeUsers.Size = new System.Drawing.Size(626, 69);
+            this.lstUnsafeUsers.Size = new System.Drawing.Size(1248, 129);
             this.lstUnsafeUsers.TabIndex = 27;
             this.lstUnsafeUsers.DoubleClick += new System.EventHandler(this.lstUnsafeUsers_DoubleClick);
             // 
             // btnDelUnsafeUser
             // 
-            this.btnDelUnsafeUser.Location = new System.Drawing.Point(347, 463);
+            this.btnDelUnsafeUser.Location = new System.Drawing.Point(694, 926);
+            this.btnDelUnsafeUser.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.btnDelUnsafeUser.Name = "btnDelUnsafeUser";
-            this.btnDelUnsafeUser.Size = new System.Drawing.Size(24, 23);
+            this.btnDelUnsafeUser.Size = new System.Drawing.Size(48, 46);
             this.btnDelUnsafeUser.TabIndex = 31;
             this.btnDelUnsafeUser.Text = "-";
             this.btnDelUnsafeUser.UseVisualStyleBackColor = true;
             this.btnDelUnsafeUser.Click += new System.EventHandler(this.btnDelUnsafeUser_Click);
             // 
+            // btnMissingMp3Files
+            // 
+            this.btnMissingMp3Files.Location = new System.Drawing.Point(964, 1120);
+            this.btnMissingMp3Files.Name = "btnMissingMp3Files";
+            this.btnMissingMp3Files.Size = new System.Drawing.Size(296, 43);
+            this.btnMissingMp3Files.TabIndex = 32;
+            this.btnMissingMp3Files.Text = "MP3های گمشده";
+            this.btnMissingMp3Files.UseVisualStyleBackColor = true;
+            this.btnMissingMp3Files.Click += new System.EventHandler(this.btnMissingMp3Files_Click);
+            // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(192F, 192F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(647, 684);
+            this.ClientSize = new System.Drawing.Size(1294, 1368);
+            this.Controls.Add(this.btnMissingMp3Files);
             this.Controls.Add(this.btnDelUnsafeUser);
             this.Controls.Add(this.txtUnsafeUserId);
             this.Controls.Add(this.btnAddUnsafeUser);
@@ -365,11 +392,12 @@ namespace BatchGanjoorLinkApprover
             this.Controls.Add(this.btnApprove);
             this.Controls.Add(this.grpLogin);
             this.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-            this.Margin = new System.Windows.Forms.Padding(2);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "MainForm";
             this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.RightToLeftLayout = true;
             this.Text = "تأییدکنندهٔ دسته‌ای تصاویر مرتبط";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.grpLogin.ResumeLayout(false);
             this.grpLogin.PerformLayout();
             this.ResumeLayout(false);
@@ -406,6 +434,7 @@ namespace BatchGanjoorLinkApprover
         private System.Windows.Forms.Label lblUnsafeUsers;
         private System.Windows.Forms.ListBox lstUnsafeUsers;
         private System.Windows.Forms.Button btnDelUnsafeUser;
+        private System.Windows.Forms.Button btnMissingMp3Files;
     }
 }
 

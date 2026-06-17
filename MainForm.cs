@@ -849,5 +849,13 @@ namespace BatchGanjoorLinkApprover
                 }
             }
         }
+
+        private void btnMissingMp3Files_Click(object sender, EventArgs e)
+        {
+            using (MissingMp3Files dlg = new MissingMp3Files())
+            {
+                dlg.ShowDialog();
+            }
+        }
     }
 }
