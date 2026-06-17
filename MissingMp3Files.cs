@@ -113,7 +113,22 @@ namespace BatchGanjoorLinkApprover
                         string filePath = txtDir.Text + "\\" + recitation.Mp3Url.Replace("https://i.ganjoor.net/", "").Replace("/", "\\");
                         if (!System.IO.File.Exists(filePath))
                         {
-
+                            RecitationErrorReportViewModel model = new RecitationErrorReportViewModel()
+                            {
+                                RecitationId = recitation.Id,
+                                ReasonText = "ضمن عذرخواهی عدم وجود فایل mp3 به دلیل مشکلات فنی گنجور",
+                                NumberOfLinesAffected = 0,
+                                CoupletIndex = 0,
+                                DateTime = DateTime.Now,
+                            };
+                            var stringContent = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json");
+                            HttpResponseMessage resCat = await httpClient.PostAsync($"https://api.ganjoor.net/api/audio/errors/report", stringContent);
+                            if (resCat.StatusCode != HttpStatusCode.OK)
+                            {
+                                Cursor = Cursors.Default;
+                                MessageBox.Show(resCat.ToString());
+                                return;
+                            }
                         }
                     }
                     pageNumber++;
