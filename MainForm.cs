@@ -217,6 +217,10 @@ namespace BatchGanjoorLinkApprover
 
                 int skip = 0;
                 bool approvedMeanings = chkMeanings.Checked;
+                bool approvePersonTags = chkPersonTags.Checked && !approvedMeanings;
+                bool approveNewPeople = chkPersonNew.Checked;
+                int approvedCount = 0;
+                int failedCount = 0;
                 do
                 {
                     lblStatus.Text = $"بعدی ...";
@@ -253,9 +257,9 @@ namespace BatchGanjoorLinkApprover
                         }
                     }
 
-                    
+                    //person tags are only ever approved for users explicitly listed as trusted
+                    bool inTrustedSet = trusted;
 
-                    
 
                     if(approvedMeanings)
                     {
@@ -286,6 +290,8 @@ namespace BatchGanjoorLinkApprover
                         continue;
                     }
 
+                    bool personTagsAllowed = approvePersonTags && inTrustedSet;
+
                     HttpResponseMessage resPoem = await httpClient.GetAsync($"https://api.ganjoor.net/api/ganjoor/poem/{correction.PoemId}?catInfo=true&catPoems=false&rhymes=false&recitations=false&images=false&songs=false&comments=false&verseDetails=false&navigation=false&relatedpoems=false");
                     if (resPoem.StatusCode != HttpStatusCode.OK)
                     {
@@ -301,15 +307,21 @@ namespace BatchGanjoorLinkApprover
                     if(!approvedMeanings)
                     {
                         string catId = result["category"]["cat"]["id"].ToString();
+                        bool protectedCategory = false;
                         if (Settings.Default.ProtectedCategoryIdSet != null)
                             foreach (var item in Settings.Default.ProtectedCategoryIdSet)
                             {
                                 if (item.ToString() == catId)
                                 {
-                                    skip++;
-                                    continue;
+                                    protectedCategory = true;
+                                    break;
                                 }
                             }
+                        if (protectedCategory)
+                        {
+                            skip++;
+                            continue;
+                        }
                     }
                     
 
@@ -324,6 +336,34 @@ namespace BatchGanjoorLinkApprover
                     Application.DoEvents();
 
                     bool onlyMeaning = true;
+
+                    if (correction.GeoDateTags != null && correction.GeoDateTags.Length > 0)
+                    {
+                        //the server refuses a correction unless every tag in it is reviewed, so either all of them
+                        //are approvable here or the correction is left for manual moderation
+                        bool allApprovable = personTagsAllowed;
+                        if (allApprovable)
+                        {
+                            foreach (var tag in correction.GeoDateTags)
+                            {
+                                if (!IsAutoApprovablePersonTag(tag, approveNewPeople))
+                                {
+                                    allApprovable = false;
+                                    break;
+                                }
+                            }
+                        }
+                        if (!allApprovable)
+                        {
+                            skip++;
+                            continue;
+                        }
+                        foreach (var tag in correction.GeoDateTags)
+                        {
+                            tag.Result = CorrectionReviewResult.Approved;
+                        }
+                        onlyMeaning = false;
+                    }
 
                     if (correction.Title != null)
                     {
@@ -348,6 +388,7 @@ namespace BatchGanjoorLinkApprover
                         correction.SummaryReviewResult = CorrectionReviewResult.Approved;
                     }
 
+                    if (correction.VerseOrderText != null)
                     foreach (var v in correction.VerseOrderText)
                     {
                         if (!string.IsNullOrEmpty(v.Text))
@@ -377,6 +418,9 @@ namespace BatchGanjoorLinkApprover
                     if (approveResponse.StatusCode == HttpStatusCode.OK)
                     {
                         approveResponse.EnsureSuccessStatusCode();
+                        approvedCount++;
+                        lblStatus.Text = $"تأیید شده: {approvedCount}";
+                        Application.DoEvents();
                     }
                     else
                     {
@@ -385,15 +429,37 @@ namespace BatchGanjoorLinkApprover
                         {
                             
                         }
+                        failedCount++;
                         skip++;
                     }
 
                 } while (true);
 
                 Cursor = Cursors.Default;
-                lblStatus.Text = "پایان";
+                lblStatus.Text = $"پایان - تأیید شده: {approvedCount}، ناموفق: {failedCount}";
 
             }
+        }
+
+        /// <summary>
+        /// a suggested person tag that can be approved without a human look: adding an existing person
+        /// (or, if allowed, a brand new one) or changing the mention kind of an existing person tag.
+        /// Deletions, place/date tags and mixed tags are always left for manual moderation.
+        /// </summary>
+        private static bool IsAutoApprovablePersonTag(GanjoorPoemGeoDateTagCorrection tag, bool allowNewPeople)
+        {
+            if (tag == null || tag.Result != CorrectionReviewResult.NotReviewed)
+                return false;
+            if (tag.MarkForDelete)
+                return false;
+            if (tag.LocationId != null || !string.IsNullOrWhiteSpace(tag.SuggestedLocationName)
+                || tag.LunarYear != null || tag.LunarMonth != null || tag.LunarDay != null)
+                return false;
+            if (tag.ChangeMentionOfExistingTag)
+                return tag.ExistingTagId != null;
+            if (tag.PersonId != null)
+                return true;
+            return allowNewPeople && !string.IsNullOrWhiteSpace(tag.SuggestedPersonGraphJson);
         }
 
         private async void btnApproveMetres_Click(object sender, EventArgs e)

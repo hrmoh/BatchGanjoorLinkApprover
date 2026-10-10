@@ -51,6 +51,8 @@ namespace BatchGanjoorLinkApprover
             this.btnApproveUserMeters = new System.Windows.Forms.Button();
             this.btnNaskbanFix = new System.Windows.Forms.Button();
             this.chkMeanings = new System.Windows.Forms.CheckBox();
+            this.chkPersonTags = new System.Windows.Forms.CheckBox();
+            this.chkPersonNew = new System.Windows.Forms.CheckBox();
             this.txtUnsafeUserId = new System.Windows.Forms.TextBox();
             this.btnAddUnsafeUser = new System.Windows.Forms.Button();
             this.lblUnsafeUsers = new System.Windows.Forms.Label();
@@ -300,6 +302,28 @@ namespace BatchGanjoorLinkApprover
             this.chkMeanings.Text = "تأیید همهٔ ویرایش‌های معنی‌ها";
             this.chkMeanings.UseVisualStyleBackColor = true;
             // 
+            // chkPersonTags
+            // 
+            this.chkPersonTags.AutoSize = true;
+            this.chkPersonTags.Location = new System.Drawing.Point(360, 1132);
+            this.chkPersonTags.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.chkPersonTags.Name = "chkPersonTags";
+            this.chkPersonTags.Size = new System.Drawing.Size(323, 31);
+            this.chkPersonTags.TabIndex = 40;
+            this.chkPersonTags.Text = "شامل برچسب نامبردگان کاربران مورد اعتماد";
+            this.chkPersonTags.UseVisualStyleBackColor = true;
+            // 
+            // chkPersonNew
+            // 
+            this.chkPersonNew.AutoSize = true;
+            this.chkPersonNew.Location = new System.Drawing.Point(700, 1132);
+            this.chkPersonNew.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.chkPersonNew.Name = "chkPersonNew";
+            this.chkPersonNew.Size = new System.Drawing.Size(250, 31);
+            this.chkPersonNew.TabIndex = 41;
+            this.chkPersonNew.Text = "و پیشنهاد نامبردهٔ جدید";
+            this.chkPersonNew.UseVisualStyleBackColor = true;
+            // 
             // txtUnsafeUserId
             // 
             this.txtUnsafeUserId.Location = new System.Drawing.Point(800, 930);
@@ -374,6 +398,8 @@ namespace BatchGanjoorLinkApprover
             this.Controls.Add(this.btnAddUnsafeUser);
             this.Controls.Add(this.lblUnsafeUsers);
             this.Controls.Add(this.lstUnsafeUsers);
+            this.Controls.Add(this.chkPersonNew);
+            this.Controls.Add(this.chkPersonTags);
             this.Controls.Add(this.chkMeanings);
             this.Controls.Add(this.btnNaskbanFix);
             this.Controls.Add(this.btnApproveUserMeters);
@@ -429,6 +455,8 @@ namespace BatchGanjoorLinkApprover
         private System.Windows.Forms.Button btnApproveUserMeters;
         private System.Windows.Forms.Button btnNaskbanFix;
         private System.Windows.Forms.CheckBox chkMeanings;
+        private System.Windows.Forms.CheckBox chkPersonTags;
+        private System.Windows.Forms.CheckBox chkPersonNew;
         private System.Windows.Forms.TextBox txtUnsafeUserId;
         private System.Windows.Forms.Button btnAddUnsafeUser;
         private System.Windows.Forms.Label lblUnsafeUsers;
