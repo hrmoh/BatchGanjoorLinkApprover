@@ -52,6 +52,8 @@ namespace BatchGanjoorLinkApprover
             this.btnNaskbanFix = new System.Windows.Forms.Button();
             this.chkMeanings = new System.Windows.Forms.CheckBox();
             this.chkPersonTags = new System.Windows.Forms.CheckBox();
+            this.btnApproveEvidences = new System.Windows.Forms.Button();
+            this.chkEvidenceNewRelations = new System.Windows.Forms.CheckBox();
             this.chkPersonNew = new System.Windows.Forms.CheckBox();
             this.txtUnsafeUserId = new System.Windows.Forms.TextBox();
             this.btnAddUnsafeUser = new System.Windows.Forms.Button();
@@ -302,6 +304,30 @@ namespace BatchGanjoorLinkApprover
             this.chkMeanings.Text = "تأیید همهٔ ویرایش‌های معنی‌ها";
             this.chkMeanings.UseVisualStyleBackColor = true;
             // 
+            // btnApproveEvidences
+            // 
+            this.btnApproveEvidences.Location = new System.Drawing.Point(14, 1344);
+            this.btnApproveEvidences.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnApproveEvidences.Name = "btnApproveEvidences";
+            this.btnApproveEvidences.Size = new System.Drawing.Size(1248, 68);
+            this.btnApproveEvidences.TabIndex = 42;
+            this.btnApproveEvidences.Text = "تأیید دسته‌ای مستندهای نسبت‌ها و وابستگی‌های کاربران مورد اعتماد";
+            this.btnApproveEvidences.UseVisualStyleBackColor = true;
+            this.btnApproveEvidences.Click += new System.EventHandler(this.btnApproveEvidences_Click);
+            // 
+            // chkEvidenceNewRelations
+            // 
+            this.chkEvidenceNewRelations.AutoSize = true;
+            this.chkEvidenceNewRelations.Checked = true;
+            this.chkEvidenceNewRelations.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkEvidenceNewRelations.Location = new System.Drawing.Point(16, 1420);
+            this.chkEvidenceNewRelations.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.chkEvidenceNewRelations.Name = "chkEvidenceNewRelations";
+            this.chkEvidenceNewRelations.Size = new System.Drawing.Size(500, 31);
+            this.chkEvidenceNewRelations.TabIndex = 43;
+            this.chkEvidenceNewRelations.Text = "شامل نسبت یا وابستگی جدیدی که همراه با مستند پیشنهاد شده است";
+            this.chkEvidenceNewRelations.UseVisualStyleBackColor = true;
+            // 
             // chkPersonTags
             // 
             this.chkPersonTags.AutoSize = true;
@@ -391,13 +417,15 @@ namespace BatchGanjoorLinkApprover
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(192F, 192F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(1294, 1368);
+            this.ClientSize = new System.Drawing.Size(1294, 1488);
             this.Controls.Add(this.btnMissingMp3Files);
             this.Controls.Add(this.btnDelUnsafeUser);
             this.Controls.Add(this.txtUnsafeUserId);
             this.Controls.Add(this.btnAddUnsafeUser);
             this.Controls.Add(this.lblUnsafeUsers);
             this.Controls.Add(this.lstUnsafeUsers);
+            this.Controls.Add(this.chkEvidenceNewRelations);
+            this.Controls.Add(this.btnApproveEvidences);
             this.Controls.Add(this.chkPersonNew);
             this.Controls.Add(this.chkPersonTags);
             this.Controls.Add(this.chkMeanings);
@@ -456,6 +484,8 @@ namespace BatchGanjoorLinkApprover
         private System.Windows.Forms.Button btnNaskbanFix;
         private System.Windows.Forms.CheckBox chkMeanings;
         private System.Windows.Forms.CheckBox chkPersonTags;
+        private System.Windows.Forms.Button btnApproveEvidences;
+        private System.Windows.Forms.CheckBox chkEvidenceNewRelations;
         private System.Windows.Forms.CheckBox chkPersonNew;
         private System.Windows.Forms.TextBox txtUnsafeUserId;
         private System.Windows.Forms.Button btnAddUnsafeUser;

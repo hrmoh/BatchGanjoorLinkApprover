@@ -462,6 +462,174 @@ namespace BatchGanjoorLinkApprover
             return allowNewPeople && !string.IsNullOrWhiteSpace(tag.SuggestedPersonGraphJson);
         }
 
+        /// <summary>
+        /// listed as trusted and not listed as untrusted
+        /// </summary>
+        private static bool IsTrustedUser(Guid userId)
+        {
+            bool trusted = false;
+            if (Settings.Default.TrustedUserIdSet != null)
+            {
+                foreach (var item in Settings.Default.TrustedUserIdSet)
+                {
+                    if (Guid.TryParse(item, out var id) && id == userId)
+                    {
+                        trusted = true;
+                        break;
+                    }
+                }
+            }
+            if (trusted && Settings.Default.UntrustedUserIdSet != null)
+            {
+                foreach (var item in Settings.Default.UntrustedUserIdSet)
+                {
+                    if (Guid.TryParse(item, out var id) && id == userId)
+                    {
+                        trusted = false;
+                        break;
+                    }
+                }
+            }
+            return trusted;
+        }
+
+        /// <summary>
+        /// batch approves suggestions made by trusted users that attach a couplet as evidence: "add evidence"
+        /// to an existing kinship relation/affiliation and, when chkEvidenceNewRelations is ticked, "add" of
+        /// a new relation/affiliation that comes with its evidence couplet (what the AI people job
+        /// suggests for a pair that is not linked yet). Modifications and removals, suggestions without
+        /// evidence, other users' suggestions and poems of protected categories are left for manual review.
+        /// </summary>
+        private async void btnApproveEvidences_Click(object sender, EventArgs e)
+        {
+            if (!await TokenIsValid())
+            {
+                MessageBox.Show("لطفا دوباره وارد شوید.");
+                return;
+            }
+
+            using (HttpClient httpClient = new HttpClient())
+            {
+                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Properties.Settings.Default.MuseumToken);
+
+                Cursor = Cursors.WaitCursor;
+                btnApproveEvidences.Enabled = false;
+                Application.DoEvents();
+
+                int skip = 0;
+                int approvedCount = 0;
+                int failedCount = 0;
+                int skippedKind = 0, skippedUser = 0, skippedProtected = 0;
+                bool includeNewRelations = chkEvidenceNewRelations.Checked;
+                var failures = new List<string>();
+                try
+                {
+                    do
+                    {
+                        lblStatus.Text = $"بعدی ... (تأیید شده: {approvedCount})";
+                        Application.DoEvents();
+
+                        HttpResponseMessage response = await httpClient.GetAsync($"https://api.ganjoor.net/api/people/relationeditsuggestions/next?skip={skip}");
+                        if (response.StatusCode == HttpStatusCode.NoContent)
+                        {
+                            break;
+                        }
+                        if (response.StatusCode != HttpStatusCode.OK)
+                        {
+                            MessageBox.Show(response.ToString());
+                            return;
+                        }
+
+                        string json = await response.Content.ReadAsStringAsync();
+                        var suggestion = string.IsNullOrWhiteSpace(json) ? null : JsonConvert.DeserializeObject<GanjoorPersonRelationEditSuggestion>(json);
+                        if (suggestion == null)
+                        {
+                            break;
+                        }
+
+                        bool approvableKind = suggestion.EvidencePoemId != null
+                            && (suggestion.Action == PersonRelationSuggestionAction.AddEvidence
+                                || (includeNewRelations && suggestion.Action == PersonRelationSuggestionAction.Add));
+                        if (!approvableKind)
+                        {
+                            skippedKind++;
+                            skip++;
+                            continue;
+                        }
+                        if (!IsTrustedUser(suggestion.UserId))
+                        {
+                            skippedUser++;
+                            skip++;
+                            continue;
+                        }
+
+                        //evidence attached to poems of protected categories is left for manual review, same as edits
+                        HttpResponseMessage resPoem = await httpClient.GetAsync($"https://api.ganjoor.net/api/ganjoor/poem/{suggestion.EvidencePoemId}?catInfo=true&catPoems=false&rhymes=false&recitations=false&images=false&songs=false&comments=false&verseDetails=false&navigation=false&relatedpoems=false");
+                        if (resPoem.StatusCode != HttpStatusCode.OK)
+                        {
+                            failedCount++;
+                            failures.Add($"#{suggestion.Id}: شعر {suggestion.EvidencePoemId} خوانده نشد ({(int)resPoem.StatusCode})");
+                            skip++;
+                            continue;
+                        }
+                        var poem = JObject.Parse(await resPoem.Content.ReadAsStringAsync());
+                        string catId = poem["category"]["cat"]["id"].ToString();
+                        bool protectedCategory = false;
+                        if (Settings.Default.ProtectedCategoryIdSet != null)
+                        {
+                            foreach (var item in Settings.Default.ProtectedCategoryIdSet)
+                            {
+                                if (item.ToString() == catId)
+                                {
+                                    protectedCategory = true;
+                                    break;
+                                }
+                            }
+                        }
+                        if (protectedCategory)
+                        {
+                            skippedProtected++;
+                            skip++;
+                            continue;
+                        }
+
+                        var moderation = new
+                        {
+                            Result = CorrectionReviewResult.Approved,
+                            ReviewNote = (string)null
+                        };
+                        HttpResponseMessage approveResponse = await httpClient.PostAsync($"https://api.ganjoor.net/api/people/relationeditsuggestions/{suggestion.Id}/moderate",
+                            new StringContent(JsonConvert.SerializeObject(moderation), Encoding.UTF8, "application/json"));
+                        if (approveResponse.IsSuccessStatusCode)
+                        {
+                            approvedCount++;
+                        }
+                        else
+                        {
+                            //e.g. the same couplet was already attached, or the relation changed meanwhile:
+                            //left in the queue for a human look
+                            failedCount++;
+                            string err = await approveResponse.Content.ReadAsStringAsync();
+                            failures.Add($"#{suggestion.Id}: {(string.IsNullOrWhiteSpace(err) ? ((int)approveResponse.StatusCode).ToString() : (err.Length > 200 ? err.Substring(0, 200) : err))}");
+                            skip++;
+                        }
+
+                    } while (true);
+
+                    lblStatus.Text = $"پایان - تأیید شده: {approvedCount}، ناموفق: {failedCount}، نوع نامناسب یا بدون مستند: {skippedKind}، کاربر غیرمورد اعتماد: {skippedUser}، دستهٔ محافظت‌شده: {skippedProtected}";
+                    if (failures.Count > 0)
+                    {
+                        MessageBox.Show("نمونهٔ خطاها:" + Environment.NewLine + string.Join(Environment.NewLine, failures.GetRange(0, Math.Min(5, failures.Count))));
+                    }
+                }
+                finally
+                {
+                    Cursor = Cursors.Default;
+                    btnApproveEvidences.Enabled = true;
+                }
+            }
+        }
+
         private async void btnApproveMetres_Click(object sender, EventArgs e)
         {
             if (!await TokenIsValid())

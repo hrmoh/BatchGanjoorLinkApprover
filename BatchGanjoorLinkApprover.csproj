@@ -71,6 +71,11 @@
     <Compile Include="ImportedViewModels\GanjoorPoemFormat.cs" />
     <Compile Include="ImportedViewModels\GanjoorPoemSectionCorrectionViewModel.cs" />
     <Compile Include="ImportedViewModels\GanjoorVerseVOrderText.cs" />
+    <Compile Include="ImportedViewModels\GanjoorPersonRelationEditSuggestion.cs" />
+    <Compile Include="ImportedViewModels\PersonAffiliationType.cs" />
+    <Compile Include="ImportedViewModels\PersonRelationSuggestionAction.cs" />
+    <Compile Include="ImportedViewModels\PersonRelationSuggestionKind.cs" />
+    <Compile Include="ImportedViewModels\PersonRelationType.cs" />
     <Compile Include="ImportedViewModels\PersonMentionKind.cs" />
     <Compile Include="ImportedViewModels\PublicRAppUser.cs" />
     <Compile Include="ImportedViewModels\PublicRecitationViewModel.cs" />

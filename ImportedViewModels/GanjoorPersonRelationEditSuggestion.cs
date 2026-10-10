@@ -1,0 +1,168 @@
+﻿using System;
+
+namespace RMuseum.Models.Ganjoor
+{
+    /// <summary>
+    /// a contributor's suggestion to add a brand new kinship edge between two already-approved
+    /// people, change an existing edge's type/degree/note, or remove an existing edge outright -
+    /// the moderated counterpart of GanjoorPersonEditSuggestion, but for the edges between people
+    /// rather than one person's own fields. Reviewed the same way (see
+    /// GanjoorRelatedPersonService.ModeratePersonRelationEditSuggestionAsync).
+    /// </summary>
+    public class GanjoorPersonRelationEditSuggestion
+    {
+        /// <summary>
+        /// suggestion id
+        /// </summary>
+        public int Id { get; set; }
+
+        /// <summary>
+        /// what this suggestion proposes doing
+        /// </summary>
+        public PersonRelationSuggestionAction Action { get; set; }
+
+        /// <summary>
+        /// whether this suggestion is about a kinship edge (Family, using SuggestedRelationType /
+        /// ExistingRelationId / ExistingRelation) or a non-family affiliation edge (Affiliation, using
+        /// SuggestedAffiliationType / ExistingAffiliationId / ExistingAffiliation instead). Defaults
+        /// to Family so rows created before this field existed keep working unchanged.
+        /// </summary>
+        public PersonRelationSuggestionKind Kind { get; set; }
+
+        /// <summary>
+        /// for Modify/Remove when Kind is Family: the existing GanjoorPersonRelation row this
+        /// suggestion targets. Null for Add, where there's nothing existing yet, and for any
+        /// Kind == Affiliation suggestion (see ExistingAffiliationId instead).
+        /// </summary>
+        public int? ExistingRelationId { get; set; }
+
+        /// <summary>
+        /// for Modify/Remove when Kind is Affiliation: the existing GanjoorPersonAffiliation row this
+        /// suggestion targets. Null for Add, and for any Kind == Family suggestion (see
+        /// ExistingRelationId instead).
+        /// </summary>
+        public int? ExistingAffiliationId { get; set; }
+
+        /// <summary>
+        /// the pair this suggestion is about. For Add, this and Person2Id define the new relation.
+        /// For Modify/Remove, these are copied from ExistingRelation at submission time, so the
+        /// suggestion always accurately reflects what it targets even if the underlying relation
+        /// changes again before this is reviewed.
+        /// </summary>
+        public int Person1Id { get; set; }
+
+        /// <summary>
+        /// second person id, see Person1Id
+        /// </summary>
+        public int Person2Id { get; set; }
+
+        /// <summary>
+        /// for Add/Modify when Kind is Family: the relation type to create/change to. For Remove: a
+        /// snapshot of the existing relation's type at submission time, purely for display (removing
+        /// doesn't use it). Ignored when Kind is Affiliation - see SuggestedAffiliationType instead.
+        /// </summary>
+        public PersonRelationType SuggestedRelationType { get; set; }
+
+        /// <summary>
+        /// only meaningful when SuggestedRelationType is Parent. Normally, a third Parent edge for
+        /// the same child is rejected (familytree.js's buildLayout only ever attaches the first two
+        /// it sorts to the front and silently drops the rest). Set this to true only when a third
+        /// recorded parent is genuinely intended (e.g. competing genealogy traditions for the same
+        /// legendary figure) to add/keep it anyway.
+        /// </summary>
+        public bool ConfirmedExtraParent { get; set; }
+
+        /// <summary>
+        /// only meaningful for a Modify of a directional edge (Parent/Ancestor kinship, or any
+        /// non-symmetric affiliation type): when true, approving the suggestion swaps the existing
+        /// edge's Person1Id/Person2Id (e.g. fixes a Killer edge recorded the wrong way round) instead
+        /// of the submitter having to delete it and add a new one. Person1Id/Person2Id of this
+        /// suggestion itself stay those of the existing edge at submission time.
+        /// </summary>
+        public bool ReverseDirection { get; set; }
+
+        /// <summary>
+        /// for Add/Modify when Kind is Affiliation: the affiliation type to create/change to. For
+        /// Remove: a snapshot of the existing affiliation's type at submission time, purely for
+        /// display. Null/ignored when Kind is Family - see SuggestedRelationType instead.
+        /// </summary>
+        public PersonAffiliationType? SuggestedAffiliationType { get; set; }
+
+        /// <summary>
+        /// see GanjoorPersonRelation.DegreeHint - same for/Add/Modify/Remove-display purpose as
+        /// SuggestedRelationType above
+        /// </summary>
+        public int? SuggestedDegreeHint { get; set; }
+
+        /// <summary>
+        /// see GanjoorPersonRelation.Note - same Add/Modify/Remove-display purpose as
+        /// SuggestedRelationType above
+        /// </summary>
+        public string SuggestedNote { get; set; }
+
+        /// <summary>
+        /// evidence couplet (see GanjoorPersonRelationEvidence): the poem it is in. Required for
+        /// Action == AddEvidence; optional for Action == Add (the evidence is attached to the new
+        /// relation when the suggestion is approved). Ignored otherwise.
+        /// </summary>
+        public int? EvidencePoemId { get; set; }
+
+        /// <summary>
+        /// evidence couplet index inside EvidencePoemId's poem
+        /// </summary>
+        public int? EvidenceCoupletIndex { get; set; }
+
+        /// <summary>
+        /// snapshot of the evidence couplet's text, filled in by the server at submission time so the
+        /// moderator sees exactly what the suggester pointed at
+        /// </summary>
+        public string EvidenceCoupletText { get; set; }
+
+        /// <summary>
+        /// for Action == RemoveEvidence: the GanjoorPersonRelationEvidence row to detach (a plain id,
+        /// not an FK, so deleting that row never conflicts with old suggestions that mention it)
+        /// </summary>
+        public int? ExistingEvidenceId { get; set; }
+
+        /// <summary>
+        /// suggester's note to the moderator (e.g. why an existing relation is wrong)
+        /// </summary>
+        public string SuggestionNote { get; set; }
+
+        /// <summary>
+        /// date
+        /// </summary>
+        public DateTime Date { get; set; }
+
+        /// <summary>
+        /// suggester's user id
+        /// </summary>
+        public Guid UserId { get; set; }
+
+        /// <summary>
+        /// reviewed
+        /// </summary>
+        public bool Reviewed { get; set; }
+
+        /// <summary>
+        /// review result
+        /// </summary>
+        public CorrectionReviewResult Result { get; set; }
+
+        /// <summary>
+        /// review date
+        /// </summary>
+        public DateTime ReviewDate { get; set; }
+
+        /// <summary>
+        /// review note
+        /// </summary>
+        public string ReviewNote { get; set; }
+
+        /// <summary>
+        /// reviewer's user id
+        /// </summary>
+        public Guid? ReviewerUserId { get; set; }
+
+    }
+}
