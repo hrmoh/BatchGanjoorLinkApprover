@@ -13,7 +13,7 @@ namespace RMuseum.Models.Ganjoor
         public int SlotId { get; set; }
 
         /// <summary>
-        /// couplet index (1 based, 0 = not located)
+        /// couplet index (0 based like GanjoorVerse.CoupletIndex, -1 = not located)
         /// </summary>
         public int CoupletIndex { get; set; }
 
@@ -59,7 +59,7 @@ namespace RMuseum.Models.Ganjoor
         public int Id { get; set; }
 
         /// <summary>
-        /// main couplet index (0 = whole poem)
+        /// main couplet index (0 based like GanjoorVerse.CoupletIndex, -1 = whole poem)
         /// </summary>
         public int CoupletIndex { get; set; }
 
