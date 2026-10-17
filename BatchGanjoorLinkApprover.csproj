@@ -68,6 +68,7 @@
     <Compile Include="ImportedViewModels\GanjoorLinkViewModel.cs" />
     <Compile Include="ImportedViewModels\GanjoorPoemCorrectionViewModel.cs" />
     <Compile Include="ImportedViewModels\GanjoorPoemGeoDateTagCorrection.cs" />
+    <Compile Include="ImportedViewModels\GanjoorPoemLiteraryTagCorrection.cs" />
     <Compile Include="ImportedViewModels\GanjoorPoemFormat.cs" />
     <Compile Include="ImportedViewModels\GanjoorPoemSectionCorrectionViewModel.cs" />
     <Compile Include="ImportedViewModels\GanjoorVerseVOrderText.cs" />

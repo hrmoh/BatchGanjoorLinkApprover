@@ -55,6 +55,8 @@ namespace BatchGanjoorLinkApprover
             this.btnApproveEvidences = new System.Windows.Forms.Button();
             this.chkEvidenceNewRelations = new System.Windows.Forms.CheckBox();
             this.chkPersonNew = new System.Windows.Forms.CheckBox();
+            this.chkLiteraryTags = new System.Windows.Forms.CheckBox();
+            this.chkLiteraryNewConcepts = new System.Windows.Forms.CheckBox();
             this.txtUnsafeUserId = new System.Windows.Forms.TextBox();
             this.btnAddUnsafeUser = new System.Windows.Forms.Button();
             this.lblUnsafeUsers = new System.Windows.Forms.Label();
@@ -262,7 +264,7 @@ namespace BatchGanjoorLinkApprover
             // 
             // btnNaskban
             // 
-            this.btnNaskban.Location = new System.Drawing.Point(12, 1176);
+            this.btnNaskban.Location = new System.Drawing.Point(12, 1224);
             this.btnNaskban.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnNaskban.Name = "btnNaskban";
             this.btnNaskban.Size = new System.Drawing.Size(1248, 68);
@@ -284,7 +286,7 @@ namespace BatchGanjoorLinkApprover
             // 
             // btnNaskbanFix
             // 
-            this.btnNaskbanFix.Location = new System.Drawing.Point(14, 1264);
+            this.btnNaskbanFix.Location = new System.Drawing.Point(14, 1312);
             this.btnNaskbanFix.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnNaskbanFix.Name = "btnNaskbanFix";
             this.btnNaskbanFix.Size = new System.Drawing.Size(1248, 68);
@@ -306,7 +308,7 @@ namespace BatchGanjoorLinkApprover
             // 
             // btnApproveEvidences
             // 
-            this.btnApproveEvidences.Location = new System.Drawing.Point(14, 1344);
+            this.btnApproveEvidences.Location = new System.Drawing.Point(14, 1392);
             this.btnApproveEvidences.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnApproveEvidences.Name = "btnApproveEvidences";
             this.btnApproveEvidences.Size = new System.Drawing.Size(1248, 68);
@@ -320,7 +322,7 @@ namespace BatchGanjoorLinkApprover
             this.chkEvidenceNewRelations.AutoSize = true;
             this.chkEvidenceNewRelations.Checked = true;
             this.chkEvidenceNewRelations.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkEvidenceNewRelations.Location = new System.Drawing.Point(16, 1420);
+            this.chkEvidenceNewRelations.Location = new System.Drawing.Point(16, 1468);
             this.chkEvidenceNewRelations.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.chkEvidenceNewRelations.Name = "chkEvidenceNewRelations";
             this.chkEvidenceNewRelations.Size = new System.Drawing.Size(500, 31);
@@ -338,6 +340,28 @@ namespace BatchGanjoorLinkApprover
             this.chkPersonTags.TabIndex = 40;
             this.chkPersonTags.Text = "شامل برچسب نامبردگان کاربران مورد اعتماد";
             this.chkPersonTags.UseVisualStyleBackColor = true;
+            // 
+            // chkLiteraryTags
+            // 
+            this.chkLiteraryTags.AutoSize = true;
+            this.chkLiteraryTags.Location = new System.Drawing.Point(16, 1176);
+            this.chkLiteraryTags.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.chkLiteraryTags.Name = "chkLiteraryTags";
+            this.chkLiteraryTags.Size = new System.Drawing.Size(323, 31);
+            this.chkLiteraryTags.TabIndex = 44;
+            this.chkLiteraryTags.Text = "شامل برچسب آرایه‌های ادبی کاربران مورد اعتماد";
+            this.chkLiteraryTags.UseVisualStyleBackColor = true;
+            // 
+            // chkLiteraryNewConcepts
+            // 
+            this.chkLiteraryNewConcepts.AutoSize = true;
+            this.chkLiteraryNewConcepts.Location = new System.Drawing.Point(700, 1176);
+            this.chkLiteraryNewConcepts.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.chkLiteraryNewConcepts.Name = "chkLiteraryNewConcepts";
+            this.chkLiteraryNewConcepts.Size = new System.Drawing.Size(250, 31);
+            this.chkLiteraryNewConcepts.TabIndex = 45;
+            this.chkLiteraryNewConcepts.Text = "و مفهوم پیشنهادی جدید";
+            this.chkLiteraryNewConcepts.UseVisualStyleBackColor = true;
             // 
             // chkPersonNew
             // 
@@ -417,7 +441,7 @@ namespace BatchGanjoorLinkApprover
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(192F, 192F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(1294, 1488);
+            this.ClientSize = new System.Drawing.Size(1294, 1536);
             this.Controls.Add(this.btnMissingMp3Files);
             this.Controls.Add(this.btnDelUnsafeUser);
             this.Controls.Add(this.txtUnsafeUserId);
@@ -426,6 +450,8 @@ namespace BatchGanjoorLinkApprover
             this.Controls.Add(this.lstUnsafeUsers);
             this.Controls.Add(this.chkEvidenceNewRelations);
             this.Controls.Add(this.btnApproveEvidences);
+            this.Controls.Add(this.chkLiteraryNewConcepts);
+            this.Controls.Add(this.chkLiteraryTags);
             this.Controls.Add(this.chkPersonNew);
             this.Controls.Add(this.chkPersonTags);
             this.Controls.Add(this.chkMeanings);
@@ -487,6 +513,8 @@ namespace BatchGanjoorLinkApprover
         private System.Windows.Forms.Button btnApproveEvidences;
         private System.Windows.Forms.CheckBox chkEvidenceNewRelations;
         private System.Windows.Forms.CheckBox chkPersonNew;
+        private System.Windows.Forms.CheckBox chkLiteraryTags;
+        private System.Windows.Forms.CheckBox chkLiteraryNewConcepts;
         private System.Windows.Forms.TextBox txtUnsafeUserId;
         private System.Windows.Forms.Button btnAddUnsafeUser;
         private System.Windows.Forms.Label lblUnsafeUsers;

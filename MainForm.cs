@@ -219,6 +219,8 @@ namespace BatchGanjoorLinkApprover
                 bool approvedMeanings = chkMeanings.Checked;
                 bool approvePersonTags = chkPersonTags.Checked && !approvedMeanings;
                 bool approveNewPeople = chkPersonNew.Checked;
+                bool approveLiteraryTags = chkLiteraryTags.Checked && !approvedMeanings;
+                bool approveNewConcepts = chkLiteraryNewConcepts.Checked;
                 int approvedCount = 0;
                 int failedCount = 0;
                 do
@@ -291,6 +293,7 @@ namespace BatchGanjoorLinkApprover
                     }
 
                     bool personTagsAllowed = approvePersonTags && inTrustedSet;
+                    bool literaryTagsAllowed = approveLiteraryTags && inTrustedSet;
 
                     HttpResponseMessage resPoem = await httpClient.GetAsync($"https://api.ganjoor.net/api/ganjoor/poem/{correction.PoemId}?catInfo=true&catPoems=false&rhymes=false&recitations=false&images=false&songs=false&comments=false&verseDetails=false&navigation=false&relatedpoems=false");
                     if (resPoem.StatusCode != HttpStatusCode.OK)
@@ -336,6 +339,34 @@ namespace BatchGanjoorLinkApprover
                     Application.DoEvents();
 
                     bool onlyMeaning = true;
+
+                    if (correction.LiteraryTags != null && correction.LiteraryTags.Length > 0)
+                    {
+                        //like person tags: the server refuses a correction unless every tag in it is reviewed, so either all of them
+                        //are approvable here or the correction is left for manual moderation
+                        bool allApprovable = literaryTagsAllowed;
+                        if (allApprovable)
+                        {
+                            foreach (var tag in correction.LiteraryTags)
+                            {
+                                if (!IsAutoApprovableLiteraryTag(tag, approveNewConcepts))
+                                {
+                                    allApprovable = false;
+                                    break;
+                                }
+                            }
+                        }
+                        if (!allApprovable)
+                        {
+                            skip++;
+                            continue;
+                        }
+                        foreach (var tag in correction.LiteraryTags)
+                        {
+                            tag.Result = CorrectionReviewResult.Approved;
+                        }
+                        onlyMeaning = false;
+                    }
 
                     if (correction.GeoDateTags != null && correction.GeoDateTags.Length > 0)
                     {
@@ -460,6 +491,39 @@ namespace BatchGanjoorLinkApprover
             if (tag.PersonId != null)
                 return true;
             return allowNewPeople && !string.IsNullOrWhiteSpace(tag.SuggestedPersonGraphJson);
+        }
+
+        /// <summary>
+        /// a suggested literary tag that can be approved without a human look: an addition the contributor was sure about
+        /// (what is uncertain, and every removal, is left for manual moderation). A tag that brings a concept which is
+        /// not in the list yet is only approvable when allowNewConcepts is set, since approval creates that concept.
+        /// </summary>
+        private static bool IsAutoApprovableLiteraryTag(GanjoorPoemLiteraryTagCorrection tag, bool allowNewConcepts)
+        {
+            if (tag == null || tag.Result != CorrectionReviewResult.NotReviewed)
+                return false;
+            if (tag.MarkForDelete || tag.Uncertain)
+                return false;
+            List<LiteraryTagPartSuggestion> parts;
+            try
+            {
+                parts = string.IsNullOrWhiteSpace(tag.PartsJson) ? new List<LiteraryTagPartSuggestion>() : JsonConvert.DeserializeObject<List<LiteraryTagPartSuggestion>>(tag.PartsJson);
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            if (parts == null)
+                return false;
+            if (!allowNewConcepts)
+            {
+                foreach (var part in parts)
+                {
+                    if (part.ConceptId == null && !string.IsNullOrWhiteSpace(part.SuggestedConceptName))
+                        return false;
+                }
+            }
+            return true;
         }
 
         /// <summary>
